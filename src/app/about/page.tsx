@@ -7,7 +7,12 @@ import Breadcrumb from "@/components/Breadcrumb"
 export default function About() {
   return (
     <div className="bg-zinc-50 container mx-auto px-10 py-8 min-h-screen flex flex-col">
-      <Breadcrumb className="mb-6" />
+      <div className="mb-6">
+        <Breadcrumb items={[
+          { label: 'Home', href: '/' },
+          { label: 'About' },
+        ]} />
+      </div>
       
       <Card className="flex-grow p-6 shadow-lg">
         <div className="flex flex-col md:flex-row items-start justify-between">

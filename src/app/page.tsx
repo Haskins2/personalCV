@@ -10,11 +10,10 @@ export default function Home() {
   ];
 
   return (
-
     <div className="bg-zinc-50 container mx-auto px-10 py-8 flex flex-col min-h-screen">
       {/* Breadcrumb */}
       <div className="mt-auto">
-        <Breadcrumb />
+        <Breadcrumb items={breadcrumbItems} />
       </div>
       <div className="flex-grow flex flex-col md:flex-row items-center justify-between mb-8">
         {/* Buttons */}
