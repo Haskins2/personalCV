@@ -15,8 +15,8 @@ export default function About() {
           <div className="md:auto mb-8 md:mb-0 pr-8">
             <h1 className="text-5xl font-bold mb-4">About Me</h1>
             <p className="text-xl text-gray-600 mb-6">
-              I'm Stephen Haskins, a fourth year Computer Engineering student at Trinity College Dublin. 
-              I'm passionate about technology and ...
+              I&apos;m Stephen Haskins, a fourth year Computer Engineering student at Trinity College Dublin. 
+              I&apos;m passionate about technology and ...
             </p>
             <h2 className="text-2xl font-semibold mb-3">Skills</h2>
             <div className="flex flex-wrap gap-2 mb-6">
@@ -46,7 +46,7 @@ export default function About() {
             <Card className="p-4 bg-gray-100">
               <h3 className="text-xl font-semibold mb-2">Current Project</h3>
               <p className="text-gray-600 mb-4">
-                I'm currently working on a machine learning project ...
+                I&apos;m currently working on a machine learning project ...
               </p>
               <Button className="bg-[#14171f] text-white">Learn More</Button>
             </Card>
