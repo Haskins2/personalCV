@@ -65,7 +65,7 @@ export default function About() {
               <Card className="p-4 bg-gray-100">
                 <h3 className="text-xl font-semibold mb-2">Current Project</h3>
                 <p className="text-gray-600 mb-4">
-                  See what I&apos;m currently working on</a>.
+                  See what I&apos;m currently working on.
                 </p>
                 <Button className="bg-[#14171f] text-white">Learn More</Button>
               </Card>
