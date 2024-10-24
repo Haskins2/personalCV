@@ -81,19 +81,19 @@ const ProjectsPage: React.FC = () => {
                         </span>
                       </div>
                     </div>
-                    <div className="flex">
-                      <div className="w-3/4 p-4">
+                    <div className="flex flex-col md:flex-row">
+                      <div className="w-full md:w-3/4 p-4">
                         <p className="text-gray-600 text-lg text-left ml-5 mt-5">
                           {project.description}
                         </p>
                       </div>
-                      <div className="w-1/6 mt-5 mb-5 mr-5 mx-auto">
+                      <div className="w-full md:w-1/6 mt-5 mb-5 mr-5 mx-auto">
                         <Image
                           src={project.imageUrl}
                           alt={project.title}
                           width={200}
                           height={200}
-                          className="h-full w-full object-cover"
+                          className="object-contain w-48 h-48 mx-auto rounded-md"
                         />
                       </div>
                     </div>
