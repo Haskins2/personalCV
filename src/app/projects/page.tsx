@@ -7,7 +7,8 @@ interface Project {
   title: string;
   description: string;
   imageUrl: string;
-  category: "hackathon" | "personal" | "group";
+  category: "Hackathon" | "Personal" | "Group" | "College";
+  date: string; // Add date field
 }
 
 const projects: Project[] = [
@@ -16,15 +17,19 @@ const projects: Project[] = [
     title: "BorderBuddy AI",
     description: "Placeholder description",
     imageUrl: "/images/project1.jpg",
-    category: "personal",
+    category: "Hackathon",
+    date: "January 2024", // Example date
   },
   {
     id: 2,
     title: "ScoreMySkill",
     description: "This project is still in development. More to come soon!",
     imageUrl: "/images/project2.jpg",
-    category: "hackathon",
+    category: "Group",
+    date: "January 2024", // Example date
   },
+ 
+
   // Add more projects as needed
 ];
 
@@ -46,42 +51,52 @@ const ProjectsPage: React.FC = () => {
           <h1 className="text-4xl font-bold mb-4 text-left">My Projects</h1>
           <p className="text-gray-600 text-lg text-left">
             This page contains a collection of projects I&apos;ve worked on.
-            Click on a project to learn more.
+            Each project is categorized into one of the following categories:
+            Hackathon, Personal, Group, and College. Click on a project to learn
+            more.
           </p>
         </div>
         <div className="space-y-16">
-          {["hackathon", "personal", "group"].map((category) => (
+          {["Hackathon", "Personal", "Group", "College"].map((category) => (
             <div key={category}>
-              <h2 className="text-3xl font-bold mb-4 text-left capitalize">
-                {category} Projects
-              </h2>
               {filterProjectsByCategory(category as Project["category"]).map(
                 (project) => (
                   <div
                     key={project.id}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden mb-8"
-                >
-                  <div className="md:flex md:flex-row-reverse">
-                    <div className="md:flex-shrink-0">
-                      <Image
-                        src={project.imageUrl}
-                        alt={project.title}
-                        width={600}
-                        height={400}
-                        className="h-64 w-full object-cover md:w-96"
-                      />
+                    className="bg-white rounded-lg shadow-lg overflow-hidden mb-8"
+                  >
+                    <div className="p-4 border-b">
+                      <div className="flex justify-between">
+                        <div>
+                          <h2 className="text-2xl font-semibold">
+                            {project.title}
+                          </h2>
+                          <p className="text-sm text-gray-500">
+                            {project.category} Project
+                          </p>
+                        </div>
+                        <span className="text-gray-500 mr-3 mt-3.5">{project.date}</span>
+                      </div>
                     </div>
-                    <div className="p-8 md:flex-grow">
-                      <h2 className="text-2xl font-semibold mb-4">
-                        {project.title}
-                      </h2>
-                      <p className="text-gray-600 text-lg">
-                        {project.description}
-                      </p>
+                    <div className="flex">
+                      <div className="w-3/4 p-4">
+                        <p className="text-gray-600 text-lg">
+                          {project.description}
+                        </p>
+                      </div>
+                      <div className="w-1/4">
+                        <Image
+                          src={project.imageUrl}
+                          alt={project.title}
+                          width={600}
+                          height={400}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                ))}
+                )
+              )}
             </div>
           ))}
         </div>
