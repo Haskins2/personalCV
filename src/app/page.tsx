@@ -144,7 +144,11 @@ export default function Home() {
                   </a>
                 </li>
               </ul>
-              
+              <h2 className="text-2xl font-semibold mb-3">Hobbies</h2>
+              <p className="text-gray-600 mb-4">I enjoy photography — capturing moments and telling stories through images.</p>
+              <Link href="/photography">
+                <Button size="sm" className="bg-[#14171f] text-white">View Photography</Button>
+              </Link>
             </div>
 
             {/* Right side content removed */}
