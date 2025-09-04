@@ -17,7 +17,7 @@ const projects: Project[] = [
     id: 1,
     title: "BorderBuddy AI",
     description:
-      "Our team recently won the Public Interest Award at HackTrinity, a hackathon hosted by Trinity College Dublin. Competing under the theme of Generative AI x Law, we developed BorderBuddy AI, a web application designed to simplify visa and immigration law for travelers. Built in under 10 hours, our project helps users easily understand the legal implications of international travel using AI-driven analysis. Click to learn more. ",
+      "Our team won the Public Interest Award at HackTrinity, a hackathon hosted by Trinity College Dublin. Competing under the theme of Generative AI x Law, we developed BorderBuddy AI, a web application designed to simplify visa and immigration law for travelers. Built in under 10 hours, our project helps users easily understand the legal implications of international travel using AI-driven analysis. Click to learn more. ",
     imageUrl: "/images/icon.jpg",
     category: "Hackathon",
     date: "January 2024",
