@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { PageTransition } from "@/components/PageTransition";
 
 export default function PhotographyPage() {
   const photosDir = "/photos";
@@ -33,14 +35,16 @@ export default function PhotographyPage() {
   }, []);
 
   return (
-    <div className="bg-zinc-50 min-h-screen">
-      <div className="container mx-auto px-10 py-8">
+    <PageTransition>
+      <div className="bg-zinc-50 dark:bg-zinc-900 min-h-screen">
+        <ThemeToggle />
+        <div className="container mx-auto px-10 py-8">
         <div className="mb-6">
           <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Photography" }]} />
         </div>
-        <h1 className="text-4xl font-bold mb-4">Photography</h1>
+        <h1 className="text-4xl font-bold mb-4 dark:text-white">Photography</h1>
         {photoFiles.length === 0 ? (
-          <p className="text-gray-600">Add images to <code>public/photos</code> and they will appear here.</p>
+          <p className="text-gray-600 dark:text-gray-300">Add images to <code>public/photos</code> and they will appear here.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {photoFiles.map((file) => (
@@ -48,7 +52,7 @@ export default function PhotographyPage() {
                 key={file}
                 type="button"
                 onClick={() => setLightboxSrc(`${photosDir}/${file}`)}
-                className="rounded-lg overflow-hidden bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+                className="rounded-lg overflow-hidden bg-gray-100 dark:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 dark:focus:ring-zinc-500"
               >
                 <div className="relative w-full aspect-square">
                   <Image
@@ -90,7 +94,8 @@ export default function PhotographyPage() {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }
 

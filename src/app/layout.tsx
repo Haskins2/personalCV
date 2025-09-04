@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from 'next-themes'
+import { AnimatePresenceWrapper } from '@/components/AnimatePresenceWrapper'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,10 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-zinc-900`}
       >
-        <ThemeProvider attribute="class" defaultTheme="zinc" enableSystem>
-          {children}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <AnimatePresenceWrapper>
+            {children}
+          </AnimatePresenceWrapper>
         </ThemeProvider>
       </body>
     </html>

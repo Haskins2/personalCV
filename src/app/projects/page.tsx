@@ -1,7 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { PageTransition } from "@/components/PageTransition";
 
 interface Project {
   id: number;
@@ -10,101 +15,138 @@ interface Project {
   imageUrl: string;
   category: "Hackathon" | "Personal" | "Group" | "College";
   date: string;
+  skills: string[];
+  link: string;
 }
 
 const projects: Project[] = [
   {
     id: 1,
     title: "BorderBuddy AI",
-    description:
-      "Our team won the Public Interest Award at HackTrinity, a hackathon hosted by Trinity College Dublin. Competing under the theme of Generative AI x Law, we developed BorderBuddy AI, a web application designed to simplify visa and immigration law for travelers. Built in under 10 hours, our project helps users easily understand the legal implications of international travel using AI-driven analysis. Click to learn more. ",
-    imageUrl: "/images/icon.jpg",
+    description: "A web application designed to simplify visa and immigration law for travelers using AI-driven analysis.",
+    imageUrl: "/BorderBuddy_AI.png",
     category: "Hackathon",
     date: "January 2024",
+    skills: ["Full Stack", "LLM\'s", "Web Development"],
+    link: "https://borderbuddyai.com"
   },
+  
   {
     id: 2,
+    title: "RAG Pipeline",
+    description: "An information retrieval project involving data preprocessing, TF-IDF retrival and generation of contextual responses using Claude's API.",
+    imageUrl: "/RAG.png",
+    category: "Personal",
+    date: "January 2024",
+    skills: ["TypeScript", "Next.js", "Database"],
+    link: "/projects/future-project"
+  },
+  {
+    id: 3,
+    title: "Machine Learning Project",
+    description: "Developed both single and multi reinforcement learning agents in an Atari style game to compete in college tournaments using PPO algorithm.",
+    imageUrl: "/atari.png",
+    category: "College",
+    date: "January 2024",
+    skills: ["TypeScript", "Next.js", "Database"],
+    link: "/projects/future-project"
+  },
+  {
+    id: 4,
+    title: "Computer Vision Project",
+    description: "More to come soon",
+    imageUrl: "/CV_p.png",
+    category: "Group",
+    date: "January 2024",
+    skills: ["TypeScript", "Next.js", "Database"],
+    link: "/projects/future-project"
+  },
+  {
+    id: 5,
     title: "Future Project",
-    description: "This project is still in development. More to come soon!",
+    description: "More to come soon",
     imageUrl: "/images/icon2.png",
     category: "Group",
     date: "January 2024",
+    skills: ["TypeScript", "Next.js", "Database"],
+    link: "/projects/future-project"
   },
   // Add more projects as needed
 ];
-
-const filterProjectsByCategory = (category: Project["category"]) => {
-  return projects.filter((project) => project.category === category);
-};
 
 const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Projects" }];
 
 const ProjectsPage: React.FC = () => {
   return (
-    <div className="bg-zinc-50 min-h-screen">
-      <div className="container mx-auto px-10 py-8 flex flex-col">
-        <Breadcrumb items={breadcrumbItems} />
-        <Card className="mb-8 mt-8">
-          <CardHeader>
-            <CardTitle className="text-3xl font-bold">My Projects</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-600 text-lg">
-              This page contains a collection of projects I&apos;ve worked on.
-              Click on a project&apos;s card to learn more.
+    <PageTransition>
+      <div className="bg-zinc-50 dark:bg-zinc-900 min-h-50">
+        <ThemeToggle />
+        <div className="container mx-20 px-10 py-8">
+        <div className="mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+        </div>
+        
+        <div className="mb-8">
+          <div className="text-left">
+            <h1 className="text-4xl font-bold mb-3 dark:text-white">My Projects</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-1">
+              A collection of some projects I've worked on, from hackathons, college assignments to personal development.
             </p>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="container mx-auto px-20 py-8 flex flex-col">
-        <div className="space-y-10">
-          {["Hackathon", "Personal", "Group", "College"].map((category) => (
-            <div key={category}>
-              {filterProjectsByCategory(category as Project["category"]).map(
-                (project) => (
-                  <div
-                    key={project.id}
-                    className="bg-white rounded-lg shadow-lg overflow-hidden mb-8"
-                  >
-                    <div className="p-4 border-b">
-                      <div className="flex justify-between">
-                        <div>
-                          <h2 className="text-2xl font-semibold">
-                            {project.title}
-                          </h2>
-                          <p className="text-sm text-gray-500">
-                            {project.category} Project
-                          </p>
-                        </div>
-                        <span className="text-gray-500 mt-3.5 mr-3 text-1xl">
-                          {project.date}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex flex-col md:flex-row">
-                      <div className="w-full md:w-3/4 p-4">
-                        <p className="text-gray-600 text-lg text-left ml-5 mt-5">
-                          {project.description}
-                        </p>
-                      </div>
-                      <div className="w-full md:w-1/6 mt-5 mb-5 mr-5 mx-auto">
-                        <Image
-                          src={project.imageUrl}
-                          alt={project.title}
-                          width={200}
-                          height={200}
-                          className="object-contain w-48 h-48 mx-auto rounded-md"
-                        />
-                      </div>
-                    </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-[500px] dark:bg-zinc-800 dark:border-zinc-700">
+                              <div className="relative h-48 bg-gray-100 dark:bg-zinc-700 flex-shrink-0">
+                <Image
+                  src={project.imageUrl}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/5 to-transparent"></div>
+              </div>
+              
+              <div className="p-6 flex flex-col flex-1">
+                <div className="mb-0">
+                  <h3 className="text-xl font-semibold mb-2 dark:text-white">{project.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                    {project.category} • {project.date}
+                  </p>
+                </div>
+                
+                <div className="mb-2 flex-1 min-h-0">
+                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3 h-[4.5rem]">
+                    {project.description}
+                  </p>
+                </div>
+                
+                <div className="mb-4 flex-shrink-0">
+                  <h4 className="text-sm font-semibold mb-2 dark:text-white">Skills used</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {project.skills.map((skill) => (
+                      <Badge key={skill} variant="outline" className="text-xs">
+                        {skill}
+                      </Badge>
+                    ))}
                   </div>
-                )
-              )}
-            </div>
+                </div>
+                
+                <div className="flex-shrink-0">
+                  <Link href={project.link}>
+                    <Button className="w-full bg-[#14171f] text-white hover:bg-[#14171f]/90 border-2 border-[#14171f]">
+                      View Project
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </Card>
           ))}
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

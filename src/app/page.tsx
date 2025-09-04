@@ -4,12 +4,50 @@ import Breadcrumb from "@/components/Breadcrumb"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { ThemeToggle } from "@/components/ThemeToggle"
+import { PageTransition } from "@/components/PageTransition"
 import cvImage from "./images/CV.jpg"
 import kxLogo from './images/KX_Logo.jpg'
 import ossLogo from './images/OSS_Logo.jpg'
 import hapLogo from './images/HAP_Logo.jpg'
 
 export default function Home() {
+  const education = [
+    {
+      degree: 'MAI in Computer Engineering',
+      institution: 'Trinity College Dublin',
+      period: '2021 – Present',
+      description: [
+        <>
+          Currently pursuing a{" "}
+          <a
+            href="https://www.tcd.ie/engineering/current-students/undergraduate/engineering/year-five-mai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 underline"
+          >
+            Masters in Computer Engineering
+          </a>
+          {" "}with focus on Machine Learning
+        </>
+      ],
+    },
+    {
+      degree: 'Erasmus at KU Leuven',
+      institution: 'KU Leuven, Belgium',
+      period: '2025 2nd Semester',
+      description: [
+        <>
+          I studied abroad and took modules from the {" "}
+          <a href="https://www.kuleuven.be/programmes/master-artificial-intelligence#About" target="_blank" rel="noopener noreferrer" className="text-gray-600 underline">
+            KUL Masters in Artificial Intelligence programme
+          </a>
+          .
+        </>
+      ],
+    }
+  ]
+
   const experiences = [
     {
       role: 'Software Engineering Intern',
@@ -48,8 +86,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-zinc-50 min-h-screen scroll-smooth">
-      <div className="container mx-auto px-10 py-8 flex flex-col min-h-screen">
+    <PageTransition>
+      <div className="bg-zinc-50 dark:bg-zinc-900 min-h-screen scroll-smooth">
+        <ThemeToggle />
+        <div className="container mx-auto px-10 py-8 flex flex-col min-h-screen">
         {/* Breadcrumb */}
         <div className="mt-auto">
           <Breadcrumb items={breadcrumbItems} />
@@ -59,7 +99,7 @@ export default function Home() {
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h1 className="text-5xl font-bold mb-4">Stephen Haskins</h1>
             <p className="text-xl text-gray-600 mb-6">
-              Fourth year Computer Engineering student at Trinity College Dublin.
+              Fifth year Computer Engineering student at Trinity College Dublin.
             </p>
             <div className="space-x-4">
               <Link href="/projects"> 
@@ -90,44 +130,68 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-start justify-between">
             {/* Left side content */}
             <div className="md:auto mb-8 md:mb-0 pr-8">
-              <h1 className="text-5xl font-bold mb-4">About Me</h1>
-              <Link href={(cvImage as any).src} target="_blank" rel="noopener noreferrer">
-                <Button size="sm" variant="outline" className="mb-4">View CV</Button>
-              </Link>
-              <p className="text-xl text-gray-600 mb-6">
-                I&apos;m Stephen Haskins, a fourth year Computer Engineering
-                student at Trinity College Dublin. I&apos;m passionate about
-                artificial intelligence and deep learning.
+              <div className="flex justify-between items-start mb-4">
+                <h1 className="text-5xl font-bold dark:text-white">About Me</h1>
+                <div className="flex gap-3">
+                  <Link href={(cvImage as any).src} target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="bg-[#14171f] text-white hover:bg-[#14171f]/90 font-semibold px-8 py-3">View CV</Button>
+                  </Link>
+                </div>
+              </div>
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
+                I&apos;m Stephen Haskins, a fifth year Computer Engineering
+                student at Trinity College Dublin. I&apos;m currently working on my thesis on ... See my projects page for more info
               </p>
               
+              <h2 className="text-2xl font-semibold mb-3 dark:text-white">Education</h2>
+              <div className="mb-6 pl-4">
+                {education.map((edu) => (
+                  <div key={`${edu.degree}-${edu.institution}`} className="mb-4">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{edu.degree}</h3>
+                    <p className="text-gray-700 dark:text-gray-300 font-medium">{edu.institution}</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">{edu.period}</p>
+                    {Array.isArray(edu.description) ? (
+                                              <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mb-3">
+                          {edu.description.map((point, index) => (
+                            <li key={index}>{point}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-gray-600 dark:text-gray-300 mb-3">{edu.description}</p>
+                      )}
+                  </div>
+                ))}
+              </div>
               
-              <h2 className="text-2xl font-semibold mb-3">Experience</h2>
+              <hr className="my-8 border-gray-300 dark:border-gray-600" />
+              
+              <h2 className="text-2xl font-semibold mb-3 dark:text-white">Experience</h2>
               <div className="space-y-4 mb-6">
                 {experiences.map((exp) => (
-                  <Card key={`${exp.role}-${exp.company}`} className="p-4">
+                  <Card key={`${exp.role}-${exp.company}`} className="p-4 dark:bg-zinc-800 dark:border-zinc-700">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <h3 className="text-xl font-semibold">{exp.role}</h3>
-                        <p className="text-gray-700">{exp.company}</p>
-                        <p className="text-gray-500 text-sm mb-2">{exp.period}</p>
+                        <h3 className="text-xl font-semibold dark:text-white">{exp.role}</h3>
+                        <p className="text-gray-700 dark:text-gray-300">{exp.company}</p>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">{exp.period}</p>
                         {Array.isArray(exp.description) ? (
-                          <ul className="list-disc list-inside text-gray-600 mb-3">
+                          <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mb-3">
                             {exp.description.map((point) => (
                               <li key={point}>{point}</li>
                             ))}
                           </ul>
                         ) : (
-                          <p className="text-gray-600 mb-3">{exp.description}</p>
+                          <p className="text-gray-600 dark:text-gray-300 mb-3">{exp.description}</p>
                         )}
-                        <h4 className="text-sm font-semibold mb-2">Skills</h4>
+                        <h4 className="text-sm font-semibold mb-2 dark:text-white">Skills</h4>
                         <div className="flex flex-wrap gap-2">
                           {exp.skills.map((s) => (
-                            <Badge key={s}>{s}</Badge>
+                            <Badge key={s} variant="secondary" className="text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-zinc-600 border-gray-300 dark:border-zinc-500">{s}</Badge>
                           ))}
                         </div>
                       </div>
                       {exp.image ? (
-                        <div className="w-34 h-34 shrink-0 overflow-hidden rounded-md bg-gray-100 m-3 mr-6">
+                        <div className="w-34 h-34 shrink-0 overflow-hidden rounded-md bg-gray-100 dark:bg-zinc-700 m-3 mr-6">
                           <Image src={exp.image as unknown as string} alt="Experience image" width={96} height={96} className="object-cover w-full h-full" />
                         </div>
                       ) : null}
@@ -135,19 +199,25 @@ export default function Home() {
                   </Card>
                 ))}
               </div>
+              
+              <hr className="my-8 border-gray-300 dark:border-gray-600" />
 
-              <h2 className="text-2xl font-semibold mb-3">Achievements</h2>
-              <ul className="list-disc list-inside text-blue-600 mb-6">
+              <h2 className="text-2xl font-semibold mb-3 dark:text-white">Achievements</h2>
+              <ul className="list-disc list-inside text-blue-600 dark:text-blue-400 mb-6">
                 <li>
                   <a href="https://www.tcd.ie/computing/undergraduate/prizes/prize-winners/2023/stephen-haskins/">
                     HackTrinity Public Interest Award Winner 2024
                   </a>
                 </li>
               </ul>
-              <h2 className="text-2xl font-semibold mb-3">Hobbies</h2>
-              <p className="text-gray-600 mb-4">I enjoy photography — capturing moments and telling stories through images.</p>
+              
+              <hr className="my-8 border-gray-300 dark:border-gray-600" />
+              
+              <h2 className="text-2xl font-semibold mb-3 dark:text-white">Hobbies</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">I have a strong passion for photography, starting when I bought a €30 film camera in a car boot sale in Dresden. This complements my love for travelling, you can see some photos below.
+              </p>
               <Link href="/photography">
-                <Button size="sm" className="bg-[#14171f] text-white">View Photography</Button>
+                <Button size="default" className="bg-[#14171f] text-white">View Photography</Button>
               </Link>
             </div>
 
@@ -155,6 +225,7 @@ export default function Home() {
           </div>
         </Card>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   )
 }
