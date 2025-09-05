@@ -9,18 +9,18 @@ export default function PhotographyPage() {
   const photosDir = "/photos";
   // Placeholder list; replace with your filenames once uploaded to public/photos
   const photoFiles = [
-    'LONDON1.png',
-    'LONDON2.png',
-    'LONDON3.png',
-    'LONDON4.png',
-    'LONDON5.png',
-    'HK1.png',
-    'HK2.png',
-    'HK3.png',
-    'HK4.png',
-    'HK5.png',
-    'MK1.png',
-    'MK2.png',
+    'LONDON1.jpg',
+    'LONDON2.jpg',
+    'LONDON3.jpg',
+    'LONDON4.jpg',
+    'LONDON5.jpg',
+    'HK1.jpg',
+    'HK2.jpg',
+    'HK3.jpg',
+    'HK4.jpg',
+    'HK5.jpg',
+    'MK1.jpg',
+    'MK2.jpg',
   ];
 
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
