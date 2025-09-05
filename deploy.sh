@@ -1,50 +1,101 @@
 #!/bin/bash
 
-set -euo pipefail
+# Deploy script for personalCV
+# Builds locally and deploys to server
 
-# Deployment script for Personal CV
-echo "🚀 Starting deployment..."
+SERVER_IP="root@172.237.120.179"
+SERVER_PATH="~/personalCV"
+LOCAL_BUILD_DIR=".next"
+REMOTE_BUILD_DIR=".next"
 
-# Directory and branch setup
-REPO_DIR="/root/personalCV"
-BRANCH="${1:-main}"
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-echo "📁 Changing to repo directory: ${REPO_DIR}"
-cd "${REPO_DIR}"
+echo -e "${YELLOW}🚀 Starting deployment process...${NC}"
 
-# Pull latest changes
-if command -v git >/dev/null 2>&1; then
-  echo "⬇️  Fetching and pulling latest from origin/${BRANCH}..."
-  git fetch --all --prune
-  git checkout "${BRANCH}"
-  git pull --ff-only origin "${BRANCH}"
+# Step 1: Build locally
+echo -e "${YELLOW}📦 Building application locally...${NC}"
+if npm run build; then
+    echo -e "${GREEN}✅ Build completed successfully${NC}"
 else
-  echo "⚠️  git not found; skipping pull."
+    echo -e "${RED}❌ Build failed${NC}"
+    exit 1
 fi
 
-# Ensure Node modules are up to date (use clean install for reproducibility)
-echo "📦 Installing dependencies (npm install)..."
-npm install
+# Step 2: Create deployment package
+echo -e "${YELLOW}📁 Creating deployment package...${NC}"
+DEPLOY_DIR="deploy_temp"
+rm -rf $DEPLOY_DIR
+mkdir -p $DEPLOY_DIR
 
-# Build the application
-echo "🔨 Building application..."
-npm run build
+# Copy necessary files
+cp -r .next $DEPLOY_DIR/
+cp -r public $DEPLOY_DIR/
+cp -r src $DEPLOY_DIR/
+cp package.json $DEPLOY_DIR/
+cp package-lock.json $DEPLOY_DIR/
+cp next.config.mjs $DEPLOY_DIR/
+cp tailwind.config.ts $DEPLOY_DIR/
+cp tsconfig.json $DEPLOY_DIR/
+cp postcss.config.mjs $DEPLOY_DIR/
 
-# Start or reload PM2 using ecosystem file
-echo "🔄 Reloading PM2 process..."
-if command -v pm2 >/dev/null 2>&1; then
-  # Use startOrReload for zero-downtime if already running
-  pm2 startOrReload ecosystem.config.js --env production
-  pm2 save
+# Step 3: Create tar archive
+echo -e "${YELLOW}🗜️  Creating archive...${NC}"
+tar -czf deploy.tar.gz -C $DEPLOY_DIR .
+
+# Step 4: Upload to server
+echo -e "${YELLOW}📤 Uploading to server...${NC}"
+if scp deploy.tar.gz $SERVER_IP:$SERVER_PATH/; then
+    echo -e "${GREEN}✅ Upload completed${NC}"
 else
-  echo "❌ PM2 is not installed. Install with: npm i -g pm2"
-  exit 1
+    echo -e "${RED}❌ Upload failed${NC}"
+    exit 1
 fi
 
-# Reload Nginx configuration
-echo "🔄 Reloading Nginx..."
-sudo nginx -t && sudo systemctl reload nginx
+# Step 5: Deploy on server
+echo -e "${YELLOW}🔧 Deploying on server...${NC}"
+ssh $SERVER_IP << 'EOF'
+    cd ~/personalCV
+    
+    # Stop current process if running
+    if pm2 list | grep -q "personalCV"; then
+        echo "Stopping current process..."
+        pm2 stop personalCV
+        pm2 delete personalCV
+    fi
+    
+    # Backup current .next if it exists
+    if [ -d ".next" ]; then
+        echo "Backing up current build..."
+        mv .next .next.backup.$(date +%Y%m%d_%H%M%S)
+    fi
+    
+    # Extract new build
+    echo "Extracting new build..."
+    tar -xzf deploy.tar.gz
+    
+    # Install dependencies
+    echo "Installing dependencies..."
+    npm ci --only=production
+    
+    # Start application
+    echo "Starting application..."
+    pm2 start npm --name "personalCV" -- start
+    
+    # Clean up
+    rm deploy.tar.gz
+    
+    echo "Deployment completed!"
+EOF
 
-echo "✅ Deployment completed successfully!"
-echo "🌐 Your site should be available at: https://stephenhaskins.me"
+# Step 6: Clean up local files
+echo -e "${YELLOW}🧹 Cleaning up local files...${NC}"
+rm -rf $DEPLOY_DIR
+rm deploy.tar.gz
+
+echo -e "${GREEN}🎉 Deployment completed successfully!${NC}"
+echo -e "${GREEN}Your app should now be running on your server.${NC}"
 

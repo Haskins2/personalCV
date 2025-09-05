@@ -90,7 +90,7 @@ const ProjectsPage: React.FC = () => {
           <div className="text-left">
             <h1 className="text-4xl font-bold mb-3 dark:text-white">My Projects</h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-1">
-              A collection of some projects I've worked on, from hackathons, college assignments to personal development.
+              A collection of some projects I&apos;ve worked on, from hackathons, college assignments to personal development.
             </p>
           </div>
         </div>

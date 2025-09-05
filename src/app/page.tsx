@@ -57,7 +57,7 @@ export default function Home() {
                     'Developed an internal ad-hoc benchmarking pipeline for developers to ensure possible performance degradation is caught at an early stage.',
                     'Utilised SonarQube for static code analysis, focusing on reducing code complexity, eliminating code smells bugs, and improving overall code maintainability'],
       skills: ['Python', 'Docker', 'AWS', 'SonarQube', 'Machine Learning'],
-      image: (kxLogo as any).src
+      image: kxLogo.src
     },
     {
       role: 'Event Crew',
@@ -68,7 +68,7 @@ export default function Home() {
         'Set up Guinness 6 Nation Rugby Grand Slam winning podium for a sold out stadium'
       ],
       skills: ['Front of House', 'Event Crew'],
-      image: (ossLogo as any).src
+      image: ossLogo.src
     },
     {
       role: 'Bar Supervisor',
@@ -77,7 +77,7 @@ export default function Home() {
       description: ['Supervised a team of 107 bar staff at main stage at Electric Picnic \'25',
       ],
       skills: ['Bar Supervisor', 'Event Crew'],
-      image: (hapLogo as any).src
+      image: hapLogo.src
     }
   ]
   const breadcrumbItems = [
@@ -133,8 +133,8 @@ export default function Home() {
               <div className="flex justify-between items-start mb-4">
                 <h1 className="text-5xl font-bold dark:text-white">About Me</h1>
                 <div className="flex gap-3">
-                  <Link href={(cvImage as any).src} target="_blank" rel="noopener noreferrer">
-                    <Button size="lg" className="bg-[#14171f] text-white hover:bg-[#14171f]/90 font-semibold px-8 py-3">View CV</Button>
+                  <Link href={cvImage.src} target="_blank" rel="noopener noreferrer">
+                    <Button size="sm" variant="outline" className="mb-4">View CV</Button>
                   </Link>
                 </div>
               </div>

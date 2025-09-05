@@ -20,7 +20,7 @@ export function SmoothScrollButton({ href, duration = 800, children, ...props }:
       const distance = targetPosition - startPosition
       const startTime = performance.now()
       
-      function scrollStep(currentTime: number) {
+      const scrollStep = (currentTime: number) => {
         const elapsed = currentTime - startTime
         const progress = Math.min(elapsed / duration, 1)
         
