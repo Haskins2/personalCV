@@ -25,30 +25,30 @@ const projects: Project[] = [
     title: "BorderBuddy AI",
     description: "A web application designed to simplify visa and immigration law for travelers using AI-driven analysis.",
     imageUrl: "/BorderBuddy_AI.jpg",
-    category: "Hackathon",
-    date: "January 2024",
-    skills: ["Full Stack", "LLM\'s", "Web Development"],
+    category: "Group Hackathon (4)",
+    date: "October 2024",
+    skills: ["Full Stack", "Python", "RAG", "LLM API"],
     link: "https://borderbuddyai.com"
   },
   
   {
     id: 2,
-    title: "RAG Pipeline",
-    description: "An information retrieval project involving data preprocessing, TF-IDF retrival and generation of contextual responses using Claude's API.",
+    title: "Information Retrieval Pipeline",
+    description: "A RAG chat-bot project involving data preprocessing, TF-IDF retrival and generating responses using Claude's API.",
     imageUrl: "/RAG.jpg",
-    category: "Personal",
-    date: "January 2024",
-    skills: ["TypeScript", "Next.js", "Database"],
+    category: "Solo",
+    date: "May 2025",
+    skills: ["Python", "Docker",  "RAG", "LLM API",],
     link: "/projects/future-project"
   },
   {
     id: 3,
     title: "Machine Learning Project",
-    description: "Developed both single and multi reinforcement learning agents in an Atari style game to compete in college tournaments using PPO algorithm.",
+    description: "Developed both single and multi reinforcement learning agents in an Atari style game to compete in tournaments using PPO algorithm.",
     imageUrl: "/atari.jpg",
-    category: "College",
-    date: "January 2024",
-    skills: ["TypeScript", "Next.js", "Database"],
+    category: "Group (2)",
+    date: "May 2025",
+    skills: ["Python", "Docker", "AWS", "ML"],
     link: "/projects/future-project"
   },
   {
@@ -56,19 +56,29 @@ const projects: Project[] = [
     title: "Computer Vision Project",
     description: "More to come soon",
     imageUrl: "/CV_p.jpg",
-    category: "Group",
-    date: "January 2024",
-    skills: ["TypeScript", "Next.js", "Database"],
+    category: "Group (4)",
+    date: "March 2025",
+    skills: ["Python", "OpenCV", "Deep Learning"],
     link: "/projects/future-project"
   },
   {
     id: 5,
-    title: "Future Project",
+    title: "Biometrics Identification System",
     description: "More to come soon",
-    imageUrl: "/images/icon2.png",
-    category: "Group",
+    imageUrl: "/fingerprint.jpeg",
+    category: "Solo",
     date: "January 2024",
-    skills: ["TypeScript", "Next.js", "Database"],
+    skills: ["Deep Learning", "Computer Vision"],
+    link: "/projects/future-project"
+  },
+  {
+    id: 6,
+    title: "This Website",
+    description: "More to come soon",
+    imageUrl: "/headshot.jpeg",
+    category: "Solo",
+    date: "January 2024",
+    skills: ["Deep Learning", "Computer Vision"],
     link: "/projects/future-project"
   },
   // Add more projects as needed
@@ -81,13 +91,13 @@ const ProjectsPage: React.FC = () => {
     <PageTransition>
       <div className="bg-zinc-50 dark:bg-zinc-900 min-h-50">
         <ThemeToggle />
-        <div className="container mx-20 px-10 py-8">
+        <div className="container mx-auto px-6 py-8">
         <div className="mb-8">
           <Breadcrumb items={breadcrumbItems} />
         </div>
         
         <div className="mb-8">
-          <div className="text-left">
+          <div className="text-left max-w-6xl mx-auto">
             <h1 className="text-4xl font-bold mb-3 dark:text-white">My Projects</h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-1">
               A collection of some projects I&apos;ve worked on, from hackathons, college assignments to personal development.
@@ -95,7 +105,7 @@ const ProjectsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {projects.map((project) => (
             <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-[500px] dark:bg-zinc-800 dark:border-zinc-700">
                               <div className="relative h-48 bg-gray-100 dark:bg-zinc-700 flex-shrink-0">

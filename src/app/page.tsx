@@ -107,7 +107,7 @@ export default function Home() {
 
   return (
     <PageTransition>
-      <div className="bg-zinc-50 dark:bg-zinc-900 min-h-screen scroll-smooth">
+      <div className="min-h-screen scroll-smooth bg-gradient-to-b from-white to-zinc-200 dark:from-zinc-900 dark:to-zinc-600">
         <ThemeToggle />
         <div className="container mx-auto px-10 py-8 flex flex-col min-h-screen">
         {/* Breadcrumb */}
