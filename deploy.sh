@@ -37,7 +37,7 @@ cp -r public $DEPLOY_DIR/
 cp -r src $DEPLOY_DIR/
 cp package.json $DEPLOY_DIR/
 cp package-lock.json $DEPLOY_DIR/
-cp next.config.mjs $DEPLOY_DIR/
+cp next.config.js $DEPLOY_DIR/
 cp tailwind.config.ts $DEPLOY_DIR/
 cp tsconfig.json $DEPLOY_DIR/
 cp postcss.config.mjs $DEPLOY_DIR/
