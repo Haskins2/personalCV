@@ -6,10 +6,6 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { PageTransition } from "@/components/PageTransition"
-import cvImage from "./images/CV.jpg"
-import kxLogo from './images/KX_Logo.jpg'
-import ossLogo from './images/OSS_Logo.jpg'
-import hapLogo from './images/HAP_Logo.jpg'
 
 export default function Home() {
   const education = [
@@ -57,7 +53,7 @@ export default function Home() {
                     'Developed an internal ad-hoc benchmarking pipeline for developers to ensure possible performance degradation is caught at an early stage.',
                     'Utilised SonarQube for static code analysis, focusing on reducing code complexity, eliminating code smells bugs, and improving overall code maintainability'],
       skills: ['Python', 'Docker', 'AWS', 'SonarQube', 'Machine Learning'],
-      image: kxLogo.src
+      image: '/KX_Logo.jpeg'
     },
     {
       role: 'Event Crew',
@@ -68,7 +64,7 @@ export default function Home() {
         'Set up Guinness 6 Nation Rugby Grand Slam winning podium for a sold out stadium'
       ],
       skills: ['Front of House', 'Event Crew'],
-      image: ossLogo.src
+      image: '/OSS_Logo.jpeg'
     },
     {
       role: 'Bar Supervisor',
@@ -77,7 +73,7 @@ export default function Home() {
       description: ['Supervised a team of 107 bar staff at main stage at Electric Picnic \'25',
       ],
       skills: ['Bar Supervisor', 'Event Crew'],
-      image: hapLogo.src
+      image: '/HAP_Logo.jpg'
     }
   ]
   const breadcrumbItems = [
@@ -133,7 +129,7 @@ export default function Home() {
               <div className="flex justify-between items-start mb-4">
                 <h1 className="text-5xl font-bold dark:text-white">About Me</h1>
                 <div className="flex gap-3">
-                  <Link href={cvImage.src} target="_blank" rel="noopener noreferrer">
+                  <Link href="/CV.pdf" target="_blank" rel="noopener noreferrer">
                     <Button size="sm" variant="outline" className="mb-4">View CV</Button>
                   </Link>
                 </div>
