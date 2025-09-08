@@ -20,12 +20,20 @@ export default function Home() {
             href="https://www.tcd.ie/engineering/current-students/undergraduate/engineering/year-five-mai/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 underline"
+            className="text-gray-600 underline dark:text-gray-300"
           >
             Masters in Computer Engineering
           </a>
           {" "}with focus on Machine Learning
         </>
+      ],
+      modules: [
+        'Machine Learning',
+        'Deep Learning',
+        'Computer Vision',
+        'Distributed Systems',
+        'Data Science',
+        'Advanced Algorithms'
       ],
     },
     {
@@ -35,11 +43,17 @@ export default function Home() {
       description: [
         <>
           I studied abroad and took modules from the {" "}
-          <a href="https://www.kuleuven.be/programmes/master-artificial-intelligence#About" target="_blank" rel="noopener noreferrer" className="text-gray-600 underline">
+          <a href="https://www.kuleuven.be/programmes/master-artificial-intelligence#About" target="_blank" rel="noopener noreferrer" className="text-gray-600 underline dark:text-gray-300">
             KUL Masters in Artificial Intelligence programme
           </a>
           .
         </>
+      ],
+      modules: [
+        'Reinforcement Learning',
+        'Natural Language Processing',
+        'Probabilistic Graphical Models',
+        'AI Ethics & Society'
       ],
     }
   ]
@@ -52,28 +66,38 @@ export default function Home() {
       description: ['Conducted benchmarks for the latest KDB.AI releases, providing performance results for the marketing sales teams',
                     'Developed an internal ad-hoc benchmarking pipeline for developers to ensure possible performance degradation is caught at an early stage.',
                     'Utilised SonarQube for static code analysis, focusing on reducing code complexity, eliminating code smells bugs, and improving overall code maintainability'],
-      skills: ['Python', 'Docker', 'AWS', 'SonarQube', 'Machine Learning'],
-      image: '/KX_Logo.jpeg'
+      skills: ['Python', 'Docker', 'AWS', 'SonarQube', 'Shell', 'Machine Learning'],
+      image: '/KX_Logo.jpeg',
+      imageWidth: 96,
+      imageHeight: 96,
+      imageMarginY: 60
     },
     {
-      role: 'Event Crew',
+      role: 'Stage Event Crew',
       company: 'OSS Recruitment',
       period: 'Jan 2024 – May 2024',
       description: ['Worked across the country at Ireland\'s largest festivals/concerts',
         'Worked Front of House at the main stage at Electric Picnic \'23, operating main spotlights for Billie Eilish, Harry Styles & The Killers in front of a crowd of 70 thousand',
         'Set up Guinness 6 Nation Rugby Grand Slam winning podium for a sold out stadium'
       ],
-      skills: ['Front of House', 'Event Crew'],
-      image: '/OSS_Logo.jpeg'
+      skills: ['Time management', 'Fast paced environment'],
+      image: '/OSS_Logo.jpeg',
+      imageWidth: 130,
+      imageHeight: 96,
+      imageMarginY: 60
     },
     {
       role: 'Bar Supervisor',
       company: 'HAP Solutions Group',
       period: 'May 2024 – Jul 2024',
       description: ['Supervised a team of 107 bar staff at main stage at Electric Picnic \'25',
+        'Worked bartending shifts at large venues including the Aviva, Croke Park, Slane Castle and 3Arena'
       ],
-      skills: ['Bar Supervisor', 'Event Crew'],
-      image: '/HAP_Logo.jpg'
+      skills: ['Supervising', 'Bartending'],
+      image: '/HAP_Logo.jpg',
+      imageWidth: 130,
+      imageHeight: 96,
+      imageMarginY: 35
     }
   ]
   const breadcrumbItems = [
@@ -94,27 +118,27 @@ export default function Home() {
           {/* Buttons */}
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h1 className="text-5xl font-bold mb-4">Stephen Haskins</h1>
-            <p className="text-xl text-gray-600 mb-6">
+            <p className="text-xl text-gray-600 mb-6 dark:text-gray-300">
               Fifth year Computer Engineering student at Trinity College Dublin.
             </p>
             <div className="space-x-4">
               <Link href="/projects"> 
-                <Button className="bg-[#14171f] text-white">View Projects</Button>
+                <Button className="bg-[#14171f] text-white dark:bg-gray-200 dark:text-gray-800">View Projects</Button>
               </Link>
               <Link href="#about">
-                <Button variant="outline">About Me</Button>
+                <Button variant="outline" className="dark:bg-gray-600">About Me</Button>
               </Link>
             </div>
           </div>
 
           {/* Image */}
-          <div className="md:w-1/2 bg-gray-200 rounded-lg aspect-square flex items-center justify-center">
+          <div className="md:w-1/2 bg-gray-200 dark:bg-gray-1000 rounded-lg aspect-square flex items-center justify-center overflow-hidden">
             <Image
               src="/headshot.jpeg"
               alt="Headshot"
-              width={600}
-              height={600}
-              className="object-cover rounded-lg"
+              width={620}
+              height={630}
+              className="object-cover"
             />
           </div>
         </div>
@@ -130,7 +154,7 @@ export default function Home() {
                 <h1 className="text-5xl font-bold dark:text-white">About Me</h1>
                 <div className="flex gap-3">
                   <Link href="/CV.pdf" target="_blank" rel="noopener noreferrer">
-                    <Button size="sm" variant="outline" className="mb-4">View CV</Button>
+                    <Button size="sm" variant="outline" className="mb-4 dark:bg-gray-300 dark:text-black">View CV</Button>
                   </Link>
                 </div>
               </div>
@@ -155,6 +179,13 @@ export default function Home() {
                       ) : (
                         <p className="text-gray-600 dark:text-gray-300 mb-3">{edu.description}</p>
                       )}
+                      
+                      {Array.isArray((edu as any).modules) && (edu as any).modules.length > 0 ? (
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 pl-3">
+                          <span className="font-semibold dark:text-white">Highlighted modules:</span>{" "}
+                          {(edu as any).modules.join(', ')}
+                        </p>
+                      ) : null}
                   </div>
                 ))}
               </div>
@@ -187,8 +218,22 @@ export default function Home() {
                         </div>
                       </div>
                       {exp.image ? (
-                        <div className="w-34 h-34 shrink-0 overflow-hidden rounded-md bg-gray-100 dark:bg-zinc-700 m-3 mr-6">
-                          <Image src={exp.image as unknown as string} alt="Experience image" width={96} height={96} className="object-cover w-full h-full" />
+                        <div
+                          className="shrink-0 overflow-hidden rounded-md mr-3 flex items-center justify-center"
+                          style={{
+                            height: (exp as any).imageHeight ?? 96,
+                            width: (exp as any).imageWidth ?? 96,
+                            marginTop: (exp as any).imageMarginY ?? 0,
+                            marginBottom: (exp as any).imageMarginY ?? 0,
+                          }}
+                        >
+                          <Image
+                            src={exp.image as unknown as string}
+                            alt="Experience image"
+                            width={(exp as any).imageWidth ?? 96}
+                            height={(exp as any).imageHeight ?? 96}
+                            className="object-contain"
+                          />
                         </div>
                       ) : null}
                     </div>
@@ -199,21 +244,31 @@ export default function Home() {
               <hr className="my-8 border-gray-300 dark:border-gray-600" />
 
               <h2 className="text-2xl font-semibold mb-3 dark:text-white">Achievements</h2>
-              <ul className="list-disc list-inside text-blue-600 dark:text-blue-400 mb-6">
+              <ul className="list-disc list-inside text-gray-700 mb-2 dark:text-white">
                 <li>
-                  <a href="https://www.tcd.ie/computing/undergraduate/prizes/prize-winners/2023/stephen-haskins/">
-                    HackTrinity Public Interest Award Winner 2024
+                  I took part in the '
+                  <a href="https://hacktrinity.com" target="_blank" rel="noopener noreferrer" className=" dark:text-blue-400 underline">
+                    GenAI x Law HackTrinity Hackathon 2024
                   </a>
+                  ' and created an AI Visa information assistant in 3 days. See my project
+                  {" "}
+                  <Link href="/projects" className=" dark:text-blue-400 underline">
+                    BorderBuddyAI
+                  </Link>
+                  {" "}
+                  for more info.
                 </li>
+                
               </ul>
+              
               
               <hr className="my-8 border-gray-300 dark:border-gray-600" />
               
               <h2 className="text-2xl font-semibold mb-3 dark:text-white">Hobbies</h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">I have a strong passion for photography, starting when I bought a €30 film camera in a car boot sale in Dresden. This complements my love for travelling, you can see some photos below.
+              <p className="text-gray-600 dark:text-gray-300 mb-4">I'm also passionate about photography, starting when I bought a €30 film camera from a car boot sale in Dresden. This complements my love for travelling, see some photos below.
               </p>
               <Link href="/photography">
-                <Button size="default" className="bg-[#14171f] text-white">View Photography</Button>
+                <Button size="default" className="bg-[#14171f] text-white dark:bg-gray-200 dark:text-black">View Photography</Button>
               </Link>
             </div>
 

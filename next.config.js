@@ -8,7 +8,6 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: false,
-    optimizePackageImports: false,
   },
   swcMinify: true,
   compress: false,
