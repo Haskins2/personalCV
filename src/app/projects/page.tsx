@@ -13,7 +13,7 @@ interface Project {
   title: string;
   description: string;
   imageUrl: string;
-  category: "Hackathon" | "Personal" | "Group" | "College";
+  category: string;
   date: string;
   skills: string[];
   link: string;
@@ -39,7 +39,7 @@ const projects: Project[] = [
     category: "Solo",
     date: "May 2025",
     skills: ["Python", "Docker",  "RAG", "LLM API",],
-    link: "/projects/future-project"
+    link: "/projects/information-retrieval-pipeline"
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ const projects: Project[] = [
     category: "Group (2)",
     date: "May 2025",
     skills: ["Python", "Docker", "AWS", "ML"],
-    link: "/projects/future-project"
+    link: "/projects/machine-learning-project"
   },
   {
     id: 4,
@@ -136,7 +136,7 @@ const ProjectsPage: React.FC = () => {
                   <h4 className="text-sm font-semibold mb-2 dark:text-white">Skills used</h4>
                   <div className="flex flex-wrap gap-2">
                     {project.skills.map((skill) => (
-                      <Badge key={skill} variant="outline" className="text-xs">
+                      <Badge key={skill} variant="outline" className="text-xs dark:bg-zinc-600 dark:text-white">
                         {skill}
                       </Badge>
                     ))}
@@ -145,7 +145,7 @@ const ProjectsPage: React.FC = () => {
                 
                 <div className="flex-shrink-0">
                   <Link href={project.link}>
-                    <Button className="w-full bg-[#14171f] text-white hover:bg-[#14171f]/90 border-2 border-[#14171f]">
+                    <Button className="w-full bg-[#14171f] text-white hover:bg-[#14171f]/90 border-2 border-[#14171f] dark:bg-zinc-200 dark:border-zinc-400 dark:text-black">
                       View Project
                     </Button>
                   </Link>

@@ -107,7 +107,7 @@ export default function Home() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen scroll-smooth bg-gradient-to-b from-white to-zinc-200 dark:from-zinc-900 dark:to-zinc-600">
+      <div className="min-h-screen scroll-smooth bg-gradient-to-b from-white to-zinc-200 dark:from-zinc-900 dark:to-zinc-800">
         <ThemeToggle />
         <div className="container mx-auto px-10 py-8 flex flex-col min-h-screen">
         {/* Breadcrumb */}
@@ -132,7 +132,7 @@ export default function Home() {
           </div>
 
           {/* Image */}
-          <div className="md:w-1/2 bg-gray-200 dark:bg-gray-1000 rounded-lg aspect-square flex items-center justify-center overflow-hidden">
+          <div className="md:w-1/2 bg-gray-200 dark:bg-gray-300 rounded-lg aspect-square flex items-center justify-center overflow-hidden">
             <Image
               src="/headshot.jpeg"
               alt="Headshot"
