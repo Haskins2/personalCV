@@ -158,9 +158,8 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
-                I&apos;m Stephen Haskins, a fifth year Computer Engineering
-                student at Trinity College Dublin. I&apos;m currently working on my thesis on ... See my projects page for more info
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                I&apos;m Stephen Haskins, a final year Master&apos;s student specialising in Computer Engineering at Trinity College Dublin. I&apos;m passionate about reinforcement learning and machine learning, with experience applying these techniques to complex engineering challenges. I&apos;m seeking graduate opportunities where I can contribute to innovative projects and continue developing my skillset.
               </p>
               
               <h2 className="text-2xl font-semibold mb-3 dark:text-white">Education</h2>
