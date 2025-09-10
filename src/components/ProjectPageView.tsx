@@ -1,87 +1,21 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { PageTransition } from "@/components/PageTransition";
 import VerticalSlidePresentation from "@/components/VerticalSlidePresentation";
-import { extractSlidesFromKeynote } from "@/lib/presentationUtils";
-import { notFound } from "next/navigation";
+import { extractSlidesFromKeynote, } from "@/lib/presentationUtils";
+import { Project } from "@/lib/projects";
 
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  imageUrl: string;
-  category: string;
-  date: string;
-  skills: string[];
-  link: string;
-  slug: string;
-  presentationPath?: string;
-  githubUrl?: string;
-  projectDescription?: string;
-  additionalImage?: string;
-  secondDescription?: string;
-  secondImage?: string;
-  technicalDetails?: {
-    overview: string;
-    architecture: string;
-    technologies: string[];
-    challenges: string[];
-    results: string[];
-  };
+interface ProjectPageViewProps {
+  project: Project;
 }
 
-const projects: Project[] = [
-  {
-    id: 2,
-    title: "Information Retrieval Pipeline",
-    description: "A RAG chat-bot project involving data preprocessing, TF-IDF retrieval and generating responses using Claude's API.",
-    imageUrl: "/RAG.jpg",
-    category: "Solo",
-    date: "May 2025",
-    skills: ["Python", "Docker", "RAG", "LLM API"],
-    link: "/projects/information-retrieval-pipeline",
-    slug: "information-retrieval-pipeline",
-    presentationPath: "/IRSE_Presentation_html/index.html",
-    githubUrl: "https://github.com/Haskins2/IRSE"
-  },
-  {
-    id: 3,
-    title: "Machine Learning Project",
-    description: "Developed both single and multi reinforcement learning agents in an Atari style game to compete in tournaments using PPO algorithm.",
-    imageUrl: "/atari.jpg",
-    category: "Group (2)",
-    date: "May 2025",
-    skills: ["Python", "Docker", "AWS", "ML"],
-    link: "/projects/machine-learning-project",
-    slug: "machine-learning-project",
-    githubUrl: "https://github.com/Haskins2/machine-learning-project",
-    projectDescription: "This project involved developing sophisticated reinforcement learning agents capable of playing Atari-style games through both single-agent and multi-agent approaches. Using the Proximal Policy Optimization (PPO) algorithm, we trained agents to compete in tournament-style competitions, exploring the challenges of multi-agent coordination and competition in complex game environments.",
-    additionalImage: "/KAZ_env.jpg",
-    secondDescription: "The training process involved extensive experimentation with hyperparameters, reward shaping, and neural network architectures. We implemented both centralized and decentralized training approaches, comparing their effectiveness in multi-agent scenarios. The agents were trained using distributed computing on AWS infrastructure, allowing for parallel training of multiple model variants and faster iteration cycles.",
-    secondImage: "/training_progress.jpg"
-  }
-  // Add more projects as needed
-];
-
-interface ProjectPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
-  const project = projects.find(p => p.slug === params.slug);
-
-  if (!project) {
-    notFound();
-  }
-
+const ProjectPageView: React.FC<ProjectPageViewProps> = ({ project }) => {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Projects", href: "/projects" },
@@ -97,10 +31,8 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
             <Breadcrumb items={breadcrumbItems} />
           </div>
 
-          {/* Project Header Section */}
           <div className="max-w-6xl mx-auto mb-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-              {/* Project Image */}
               <div className="mt-5 relative h-80 lg:h-60 rounded-lg overflow-hidden shadow-lg">
                 <Image
                   src={project.imageUrl}
@@ -110,7 +42,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
                 />
               </div>
 
-              {/* Project Info */}
               <div className="space-y-6">
                 <div>
                   <h1 className="text-4xl font-bold mb-3 dark:text-white">
@@ -161,13 +92,77 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
             </div>
           </div>
 
-          {/* Page Break */}
           <div className="border-t border-gray-300 dark:border-zinc-700 my-12"></div>
 
-          {/* Project Description Section */}
+          {project.slug === "computer-vision-project" && (
+            <div className="max-w-6xl mx-auto mb-12">
+              <div className="max-w-5xl">
+                <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
+                  This project uses the PASCAL VOC 2009 dataset, consisting of colour images with different object
+                  classes (e.g. animal: <em>bird, cat, ...</em>; vehicle: <em>aeroplane, bicycle, ...</em>), totalling 20 classes.
+                  We developed and trained an end to end neural network for classifying these objects using a fine-tuned
+                  version MobileNetV2.
+                </p>
+
+                <h3 className="text-2xl font-semibold mb-3 dark:text-white">Base Model</h3>
+                <ul className="list-disc pl-10 text-gray-700 dark:text-gray-300 mb-6">
+                  <li>
+                    MobileNetV2 pre-trained on ImageNet serves as our feature extractor. This lightweight but powerful
+                    architecture provides a strong foundation for our classification task.
+                  </li>
+                </ul>
+
+                <h3 className="text-2xl font-semibold mb-3 dark:text-white">Custom Classification Head</h3>
+                <ul className="list-disc pl-10 text-gray-700 dark:text-gray-300 mb-6 space-y-1">
+                  <li>Global Average Pooling layer to reduce spatial dimensions</li>
+                  <li>Dense layer (512 units) with ReLU activation</li>
+                  <li>Dropout layer (0.3) for regularization</li>
+                  <li>Dense layer (256 units) with ReLU activation</li>
+                  <li>Final Dense layer with sigmoid activation for multi-label classification</li>
+                </ul>
+
+                <h3 className="text-2xl font-semibold mb-3 dark:text-white">Training Strategy</h3>
+                <ul className="list-disc pl-10 text-gray-700 dark:text-gray-300 mb-6 space-y-1">
+                  <li>Two-phase training approach:</li>
+                  <ul className="list-disc pl-12 space-y-1">
+                    <li>Initial training with frozen base model</li>
+                    <li>Fine-tuning phase with last 5 blocks of MobileNetV2 unfrozen</li>
+                  </ul>
+                  <li>Learning rate reduction during fine-tuning (50% of initial rate)</li>
+                  <li>Batch size reduction during fine-tuning for better stability</li>
+                </ul>
+
+                <div className="relative mx-auto w-full h-96 lg:h-[420px] rounded-lg overflow-hidden shadow-lg mb-8">
+                  <Image
+                    src="/overfitting.jpg"
+                    alt="Computer Vision project overview"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+
+                <h3 className="text-2xl font-semibold mb-1 dark:text-white">Advanced Features</h3>
+                <ul className="list-disc pl-10 text-gray-700 dark:text-gray-300 mb-3 space-y-1">
+                  <li>Class-weighted loss function to handle class imbalance</li>
+                  <li>Data augmentation pipeline</li>
+                </ul>
+                <h3 className="text-2xl font-semibold mb-5 dark:text-white">Results</h3>
+              </div>
+              <div className="relative w-2/3 ml-40 h-96 lg:h-[420px] rounded-lg overflow-hidden shadow-lg mb-8">
+                <Image
+                  src="/example.jpg"
+                  alt="Computer Vision project overview"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          )}
+
           {project.projectDescription && (
             <div className="max-w-6xl mx-auto mb-12 ">
-   
               <div className="max-w-5xl ">
                 <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-fit">
                   {project.projectDescription}
@@ -176,7 +171,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
             </div>
           )}
 
-          {/* Additional Image Section */}
           {project.additionalImage && (
             <div className="max-w-6xl mx-auto mb-12">
               <div className="relative w-full h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-lg">
@@ -190,7 +184,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
             </div>
           )}
 
-          {/* Second Description Section */}
           {project.secondDescription && (
             <div className="max-w-6xl mx-auto mb-12">
               <div className="max-w-5xl">
@@ -201,7 +194,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
             </div>
           )}
 
-          {/* Second Image Section */}
           {project.secondImage && (
             <div className="max-w-6xl mx-auto mb-12">
               <div className="relative w-full h-96 lg:h-[550px] rounded-lg overflow-hidden shadow-lg">
@@ -215,23 +207,13 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
             </div>
           )}
 
-          {/* Results Section */}
-          <div className="max-w-6xl mx-auto mb-12">
-            <h2 className="text-3xl font-bold mb-6 dark:text-white text-left">
-              Results
-            </h2>
-            results go here
-          </div>
-
-          {/* Presentation Section */}
           {project.presentationPath && (
-            <VerticalSlidePresentation 
+            <VerticalSlidePresentation
               slides={extractSlidesFromKeynote(project.presentationPath)}
               title="Project Presentation"
             />
           )}
 
-          {/* Technical Details Section - Fallback for projects without presentation */}
           {project.technicalDetails && !project.presentationPath && (
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl font-bold mb-8 dark:text-white text-center">
@@ -239,7 +221,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
               </h2>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Overview Card */}
                 <Card className="p-6 dark:bg-zinc-800 dark:border-zinc-700">
                   <h3 className="text-xl font-semibold mb-4 dark:text-white">
                     System Overview
@@ -249,7 +230,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
                   </p>
                 </Card>
 
-                {/* Architecture Card */}
                 <Card className="p-6 dark:bg-zinc-800 dark:border-zinc-700">
                   <h3 className="text-xl font-semibold mb-4 dark:text-white">
                     Architecture
@@ -259,7 +239,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
                   </p>
                 </Card>
 
-                {/* Technologies Card */}
                 <Card className="p-6 dark:bg-zinc-800 dark:border-zinc-700">
                   <h3 className="text-xl font-semibold mb-4 dark:text-white">
                     Key Technologies
@@ -274,7 +253,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
                   </ul>
                 </Card>
 
-                {/* Challenges Card */}
                 <Card className="p-6 dark:bg-zinc-800 dark:border-zinc-700">
                   <h3 className="text-xl font-semibold mb-4 dark:text-white">
                     Key Challenges
@@ -290,7 +268,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
                 </Card>
               </div>
 
-              {/* Results Section */}
               <Card className="p-6 mt-8 dark:bg-zinc-800 dark:border-zinc-700">
                 <h3 className="text-xl font-semibold mb-4 dark:text-white">
                   Project Results
@@ -312,4 +289,6 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ params }) => {
   );
 };
 
-export default ProjectPage;
+export default ProjectPageView;
+
+

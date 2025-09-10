@@ -2,8 +2,8 @@ import { ProjectCardSkeleton } from "@/components/Skeleton"
 
 export default function ProjectsLoading() {
   return (
-    <div className="bg-zinc-50 dark:bg-zinc-900 min-h-50">
-      <div className="container mx-20 px-10 py-8">
+    <div className="bg-zinc-50 dark:bg-zinc-900 min-h-screen">
+      <div className="container mx-auto px-6 py-8">
         {/* Breadcrumb skeleton */}
         <div className="mb-8">
           <div className="flex items-center space-x-2">
@@ -20,7 +20,7 @@ export default function ProjectsLoading() {
         </div>
 
         {/* Projects grid skeleton */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {Array.from({ length: 6 }).map((_, i) => (
             <ProjectCardSkeleton key={i} />
           ))}

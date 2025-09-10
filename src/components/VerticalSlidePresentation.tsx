@@ -19,14 +19,16 @@ const VerticalSlidePresentation: React.FC<VerticalSlidePresentationProps> = ({
   title 
 }) => {
   return (
-    <div className="max-w-6xl mx-auto">
-      <h2 className="text-3xl font-bold mb-8 dark:text-white text-center">
+    <div className="max-w-6xl">
+      <h2 className="text-3xl font-bold mb-4 dark:text-white text-left ml-4">
         {title}
       </h2>
       <div className="mb-4">
-        <p className="text-gray-600 dark:text-gray-400 text-center">
-          Scroll through the presentation slides below
+        <p className="text-gray-600 dark:text-gray-400 text-left ml-4 mb-5">
+          Below are a few slide exerpts from my presentation describing a high level overview of this project.
+          
         </p>
+      
       </div>
       
       <div 

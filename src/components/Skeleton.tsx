@@ -81,3 +81,51 @@ export function HeroSkeleton() {
     </div>
   )
 }
+
+export function ProjectDetailSkeleton() {
+  return (
+    <div className="max-w-6xl mx-auto mb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        {/* Image placeholder */}
+        <Skeleton className="mt-5 h-80 lg:h-60 w-full rounded-lg" />
+
+        {/* Right side content */}
+        <div className="space-y-6">
+          {/* Title and meta */}
+          <div>
+            <Skeleton className="h-10 w-2/3 mb-3" />
+            <div className="flex items-center gap-4 mb-4">
+              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-4 w-20" />
+            </div>
+          </div>
+
+          {/* Overview heading and paragraph */}
+          <div>
+            <Skeleton className="h-6 w-40 mb-3" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+              <Skeleton className="h-4 w-4/6" />
+            </div>
+          </div>
+
+          {/* Buttons row */}
+          <div className="flex gap-4">
+            <Skeleton className="h-10 w-36" />
+            <Skeleton className="h-10 w-40" />
+          </div>
+        </div>
+      </div>
+
+      {/* Page break */}
+      <div className="border-t border-gray-300 dark:border-zinc-700 my-12" />
+
+      {/* Secondary block example */}
+      <div className="space-y-4">
+        <Skeleton className="h-6 w-32" />
+        <Skeleton className="h-96 w-full rounded-lg" />
+      </div>
+    </div>
+  )
+}

@@ -54,12 +54,12 @@ const projects: Project[] = [
   {
     id: 4,
     title: "Computer Vision Project",
-    description: "More to come soon",
+    description: "Developed and trained an end-to-end neural network for classifying 20 object classes in colour images.",
     imageUrl: "/CV_p.jpg",
     category: "Group (4)",
     date: "March 2025",
     skills: ["Python", "OpenCV", "Deep Learning"],
-    link: "/projects/future-project"
+    link: "/projects/computer-vision-project"
   },
   {
     id: 5,
@@ -67,19 +67,19 @@ const projects: Project[] = [
     description: "More to come soon",
     imageUrl: "/fingerprint.jpeg",
     category: "Solo",
-    date: "January 2024",
-    skills: ["Deep Learning", "Computer Vision"],
-    link: "/projects/future-project"
+    date: "March 2025",
+    skills: ["Docker", "Deep Learning", "Computer Vision"],
+    link: "/projects/biometrics-identification-system"
   },
   {
     id: 6,
-    title: "This Website",
+    title: "Autonomous Buggy Project",
     description: "More to come soon",
-    imageUrl: "/headshot.jpeg",
+    imageUrl: "/buggy.jpg",
     category: "Solo",
     date: "January 2024",
     skills: ["Deep Learning", "Computer Vision"],
-    link: "/projects/future-project"
+    link: "https://github.com/Haskins2/Autonomous-Buggy-Project"
   },
   // Add more projects as needed
 ];
