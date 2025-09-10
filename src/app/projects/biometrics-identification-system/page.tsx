@@ -29,7 +29,7 @@ const Page = () => {
     <PageTransition>
       <div className="bg-zinc-50 dark:bg-zinc-900 min-h-screen">
         <ThemeToggle />
-        <div className="container mx-auto px-6 py-8">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 py-8">
           <div className="mb-8">
             <Breadcrumb items={breadcrumbItems} />
           </div>
@@ -47,7 +47,7 @@ const Page = () => {
 
               <div className="space-y-6">
                 <div>
-                  <h1 className="text-4xl font-bold mb-3 dark:text-white">
+                  <h1 className="text-3xl sm:text-4xl font-bold mb-3 dark:text-white">
                     {project.title}
                   </h1>
                   <div className="flex items-center gap-4 mb-4">
@@ -61,11 +61,11 @@ const Page = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold mb-3 dark:text-white">
-                    Project Overview
+                  <h3 className="text-lg sm:text-xl font-semibold mb-3 dark:text-white">
+                    Overview
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-                    {project.description}
+                  <p className="text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed text-left mb-6">
+                    overview.
                   </p>
                 </div>
 

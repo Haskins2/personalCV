@@ -109,19 +109,19 @@ export default function Home() {
     <PageTransition>
       <div className="min-h-screen scroll-smooth bg-gradient-to-b from-white to-zinc-200 dark:from-zinc-900 dark:to-zinc-800">
         <ThemeToggle />
-        <div className="container mx-auto px-10 py-8 flex flex-col min-h-screen">
+        <div className="container mx-auto px-4 sm:px-6 md:px-10 py-8 flex flex-col min-h-screen">
         {/* Breadcrumb */}
         <div className="mt-auto">
           <Breadcrumb items={breadcrumbItems} />
         </div>
-        <div className="flex-grow flex flex-col md:flex-row items-center justify-between mb-8">
+        <div className="flex-grow flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
           {/* Buttons */}
           <div className="md:w-1/2 mb-8 md:mb-0">
-            <h1 className="text-5xl font-bold mb-4">Stephen Haskins</h1>
-            <p className="text-xl text-gray-600 mb-6 dark:text-gray-300">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Stephen Haskins</h1>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 dark:text-gray-300">
               Fifth year Computer Engineering student at Trinity College Dublin.
             </p>
-            <div className="space-x-4">
+            <div className="flex flex-wrap gap-3">
               <Link href="/projects"> 
                 <Button className="bg-[#14171f] text-white dark:bg-gray-200 dark:text-gray-800">View Projects</Button>
               </Link>
@@ -132,7 +132,7 @@ export default function Home() {
           </div>
 
           {/* Image */}
-          <div className="md:w-1/2 bg-gray-200 dark:bg-gray-300 rounded-lg aspect-square flex items-center justify-center overflow-hidden">
+          <div className="md:w-1/2 w-full bg-gray-200 dark:bg-gray-300 rounded-lg aspect-square flex items-center justify-center overflow-hidden">
             <Image
               src="/headshot.jpeg"
               alt="Headshot"
@@ -145,28 +145,28 @@ export default function Home() {
       </div>
 
       {/* About Section */}
-      <div id="about" className="container mx-auto px-10 pb-16">
+      <div id="about" className="container mx-auto px-4 sm:px-6 md:px-10 pb-16">
         <Card className="p-6 shadow-lg">
           <div className="flex flex-col md:flex-row items-start justify-between">
             {/* Left side content */}
-            <div className="md:auto mb-8 md:mb-0 pr-8">
+            <div className="md:auto mb-8 md:mb-0 md:pr-8">
               <div className="flex justify-between items-start mb-4">
-                <h1 className="text-5xl font-bold dark:text-white">About Me</h1>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold dark:text-white">About Me</h1>
                 <div className="flex gap-3">
                   <Link href="/CV.pdf" target="_blank" rel="noopener noreferrer">
                     <Button size="sm" variant="outline" className="mb-4 dark:bg-gray-300 dark:text-black">View CV</Button>
                   </Link>
                 </div>
               </div>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6">
                 I&apos;m Stephen Haskins, a final year Master&apos;s student specialising in Computer Engineering at Trinity College Dublin. I&apos;m passionate about reinforcement learning and machine learning, with experience applying these techniques to complex engineering challenges. I&apos;m seeking graduate opportunities where I can contribute to innovative projects and continue developing my skillset.
               </p>
               
-              <h2 className="text-2xl font-semibold mb-3 dark:text-white">Education</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold mb-3 dark:text-white">Education</h2>
               <div className="mb-6 pl-4">
                 {education.map((edu) => (
                   <div key={`${edu.degree}-${edu.institution}`} className="mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{edu.degree}</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">{edu.degree}</h3>
                     <p className="text-gray-700 dark:text-gray-300 font-medium">{edu.institution}</p>
                     <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">{edu.period}</p>
                     {Array.isArray(edu.description) ? (
@@ -191,13 +191,13 @@ export default function Home() {
               
               <hr className="my-8 border-gray-300 dark:border-gray-600" />
               
-              <h2 className="text-2xl font-semibold mb-3 dark:text-white">Experience</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold mb-3 dark:text-white">Experience</h2>
               <div className="space-y-4 mb-6">
                 {experiences.map((exp) => (
                   <Card key={`${exp.role}-${exp.company}`} className="p-4 dark:bg-zinc-800 dark:border-zinc-700">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <h3 className="text-xl font-semibold dark:text-white">{exp.role}</h3>
+                        <h3 className="text-lg sm:text-xl font-semibold dark:text-white">{exp.role}</h3>
                         <p className="text-gray-700 dark:text-gray-300">{exp.company}</p>
                         <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">{exp.period}</p>
                         {Array.isArray(exp.description) ? (
@@ -218,7 +218,7 @@ export default function Home() {
                       </div>
                       {exp.image ? (
                         <div
-                          className="shrink-0 overflow-hidden rounded-md mr-3 flex items-center justify-center"
+                          className="hidden md:flex shrink-0 overflow-hidden rounded-md mr-3 items-center justify-center"
                           style={{
                             height: (exp as any).imageHeight ?? 96,
                             width: (exp as any).imageWidth ?? 96,
@@ -242,7 +242,7 @@ export default function Home() {
               
               <hr className="my-8 border-gray-300 dark:border-gray-600" />
 
-              <h2 className="text-2xl font-semibold mb-3 dark:text-white">Achievements</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold mb-3 dark:text-white">Achievements</h2>
               <ul className="list-disc list-inside text-gray-700 mb-2 dark:text-white">
                 <li>
                   I took part in the '
@@ -263,8 +263,8 @@ export default function Home() {
               
               <hr className="my-8 border-gray-300 dark:border-gray-600" />
               
-              <h2 className="text-2xl font-semibold mb-3 dark:text-white">Hobbies</h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">I'm also passionate about photography, starting when I bought a €30 film camera from a car boot sale in Dresden. This complements my love for travelling, see some photos below.
+              <h2 className="text-xl sm:text-2xl font-semibold mb-3 dark:text-white">Hobbies</h2>
+              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-4">I'm also passionate about photography, starting when I bought a €30 film camera from a car boot sale in Dresden. This complements my love for travelling, see some photos below.
               </p>
               <Link href="/photography">
                 <Button size="default" className="bg-[#14171f] text-white dark:bg-gray-200 dark:text-black">View Photography</Button>
