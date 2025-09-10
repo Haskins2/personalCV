@@ -74,11 +74,11 @@ const projects: Project[] = [
   {
     id: 6,
     title: "Autonomous Buggy Project",
-    description: "More to come soon",
+    description: "An autonomous buggy was developed using an Arduino and off the shelf IR sensors, US sensors and motors.",
     imageUrl: "/buggy.jpg",
     category: "Solo",
     date: "January 2024",
-    skills: ["Deep Learning", "Computer Vision"],
+    skills: ["C++", "Electronics"],
     link: "https://github.com/Haskins2/Autonomous-Buggy-Project"
   },
   // Add more projects as needed
