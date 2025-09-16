@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from 'next-themes'
 import { AnimatePresenceWrapper } from '@/components/AnimatePresenceWrapper'
 import WorkInProgressBanner from '@/components/WorkInProgressBanner'
+import Script from 'next/script'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,6 +32,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-zinc-900`}
       >
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-1Z3VW3L07Q" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-1Z3VW3L07Q');
+          `}
+        </Script>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <WorkInProgressBanner />
           <AnimatePresenceWrapper>
