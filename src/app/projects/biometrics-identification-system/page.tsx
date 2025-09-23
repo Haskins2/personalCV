@@ -104,7 +104,7 @@ const Page = () => {
                   <div className="flex flex-col w-full md:w-1/2">
                     <div className="relative h-72 lg:h-[400px] rounded-lg overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                       <Image
-                        src="/FP_processing.jpeg"
+                        src="/FP_Processing.jpeg"
                         alt="Fingerprint Processing Pipeline"
                         fill
                         className="object-contain"

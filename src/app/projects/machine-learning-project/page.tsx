@@ -14,7 +14,7 @@ const Page = () => {
     imageUrl: "/atari.jpg",
     category: "Group (2)",
     date: "May 2025",
-    githubUrl: "https://github.com/Haskins2/machine-learning-project",
+    githubUrl: "https://github.com/HamzaRIP/Task3",
     additionalImage: "/KAZ_env.jpg",
     secondDescription: "Our agent was trained using an AWS EC2 instance, allowing us to scale up training and achieve faster convergence. I personally developed the below RL training visualisation plot, which came in particularly useful when experimenting with the agent's feature vectors. This, similar to my DevOps internship experience, allowed us to catch issues early and save on both limited computational resources and time. ",
     secondImage: "/training_progress.jpg"

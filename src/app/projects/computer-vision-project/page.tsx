@@ -13,10 +13,10 @@ const Page = () => {
   const project = {
     title: "Computer Vision Project",
     description: "Developed and trained an end-to-end neural network for classifying 20 object classes in colour images",
-    imageUrl: "/cv_p.jpg",
+    imageUrl: "/CV_p.jpg",
     category: "Group (4)",
     date: "March 2025",
-    githubUrl: "https://github.com/Haskins2/computer-vision-project"
+    githubUrl: "https://github.com/Haskins2/CV_GA2"
   };
 
   const breadcrumbItems = [
