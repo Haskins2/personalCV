@@ -22,17 +22,6 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "BorderBuddy AI",
-    description: "A web application designed to simplify visa and immigration law for travelers using AI-driven analysis.",
-    imageUrl: "/BorderBuddy_AI.jpg",
-    category: "Group Hackathon (4)",
-    date: "October 2024",
-    skills: ["Full Stack", "Python", "RAG", "LLM API"],
-    link: "https://borderbuddyai.com"
-  },
-  
-  {
-    id: 2,
     title: "Information Retrieval Pipeline",
     description: "A RAG chat-bot project involving data preprocessing, TF-IDF retrival and generating responses using Claude's API.",
     imageUrl: "/RAG.jpg",
@@ -40,6 +29,16 @@ const projects: Project[] = [
     date: "May 2025",
     skills: ["Python", "Docker",  "RAG", "LLM API",],
     link: "/projects/information-retrieval-pipeline"
+  },
+  {
+    id: 2,
+    title: "Biometrics Identification System",
+    description: "A multimodal biometric system combining fingerprint and iris recognition to solve a forensic investigation case.",
+    imageUrl: "/fingerprint.jpeg",
+    category: "Solo",
+    date: "March 2025",
+    skills: ["Docker", "Deep Learning", "Computer Vision"],
+    link: "/projects/biometrics-identification-system"
   },
   {
     id: 3,
@@ -63,13 +62,13 @@ const projects: Project[] = [
   },
   {
     id: 5,
-    title: "Biometrics Identification System",
-    description: "More to come soon",
-    imageUrl: "/fingerprint.jpeg",
-    category: "Solo",
-    date: "March 2025",
-    skills: ["Docker", "Deep Learning", "Computer Vision"],
-    link: "/projects/biometrics-identification-system"
+    title: "BorderBuddy AI",
+    description: "A web application designed to simplify visa and immigration law for travelers using AI-driven analysis.",
+    imageUrl: "/BorderBuddy_AI.jpg",
+    category: "Group Hackathon (4)",
+    date: "October 2024",
+    skills: ["Full Stack", "Python", "RAG", "LLM API"],
+    link: "https://borderbuddyai.com"
   },
   {
     id: 6,
@@ -81,6 +80,7 @@ const projects: Project[] = [
     skills: ["C++", "Electronics"],
     link: "https://github.com/Haskins2/Autonomous-Buggy-Project"
   },
+
   // Add more projects as needed
 ];
 

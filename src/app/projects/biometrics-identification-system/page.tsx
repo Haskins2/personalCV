@@ -12,10 +12,10 @@ import VerticalSlidePresentation from "@/components/VerticalSlidePresentation";
 const Page = () => {
   const project = {
     title: "Biometrics Identification System",
-    description: "WIP",
+    description: "A multimodal biometric system combining fingerprint and iris recognition to solve a forensic investigation case.",
     imageUrl: "/fingerprint.jpeg",
     category: "Solo",
-    date: "January 2024",
+    date: "March 2025",
     githubUrl: undefined as string | undefined
   };
 
@@ -65,7 +65,7 @@ const Page = () => {
                     Overview
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed text-left mb-6">
-                    overview.
+                    {project.description}
                   </p>
                 </div>
 
@@ -89,15 +89,151 @@ const Page = () => {
 
           <div className="max-w-6xl mx-auto mb-12">
             <div className="max-w-5xl">
-              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Overview</h3>
+              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Project Context</h3>
               <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
-                overview.
+                This project presents a murder investigation scenario where the only evidence is a fingerprint, and the goal is to identify the perpetrator from a database of 100 fingerprints. The system implements a comprehensive multimodal biometric recognition pipeline combining fingerprint and iris analysis
               </p>
 
-              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Planned Work</h3>
-              <ul className="list-disc pl-10 text-gray-700 dark:text-gray-300 mb-6 space-y-1">
-                <li>Evaluation etc</li>
-              </ul>
+              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Fingerprint Recognition</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
+                For fingerprint recognition, a custom FP enhancement pipeline was developedusing gradient-based segmentation, orientation estimation, and Gabor filtering. The minutiae detection algorithm identifies ridge terminations and bifurcations using 8-neighborhood analysis, followed by keypoint matching and global alignment techniques.
+              </p>
+              
+              <div className="max-w-4xl mx-auto mb-8">
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="flex flex-col w-full md:w-1/2">
+                    <div className="relative h-72 lg:h-[400px] rounded-lg overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                      <Image
+                        src="/FP_processing.jpeg"
+                        alt="Fingerprint Processing Pipeline"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <span className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center">
+                      Fingerprint preprocessing pipeline
+                    </span>
+                  </div>
+                  <div className="flex flex-col w-full md:w-1/2">
+                    <div className="relative h-72 lg:h-[400px] rounded-lg overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                      <Image
+                        src="/Minutiae.jpeg"
+                        alt="Fingerprint Matching Visualization"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <span className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center">
+                      Minutiae matching visualization
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
+                Using a custom composite similarity metric, a similarity table was created and the below 8 fingerprints were returned. Clearly, these fingerprints are all the same, therefore our database must have been tampered with. This is where the Iris Recognition pipeline comes in.
+              </p>
+              
+              <div className="max-w-5xl mx-auto mb-8">
+                <div className="relative w-full h-26 lg:h-[220px] rounded-lg overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                  <Image
+                    src="/FPs.jpeg" 
+                    alt="Top 8 fingerprint matches"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center block">
+                  Top 8 fingerprint matches returned by the system
+                </span>
+              </div>
+
+              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Iris Recognition</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
+                Similar to before, a custom preprocessing & enhancement system was applied to the raw iris images. Iris images underwent segmentation by means of Hough transform, and Daugman's rubber sheet model was used to normalise/unwrap the irises.
+              </p>
+              
+              <div className="max-w-5xl mx-auto mb-8">
+                <div className="relative w-full h-26 lg:h-[300px] rounded-lg overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                  <Image
+                    src="/Iris_Enhancement.jpg" 
+                    alt="Iris Preprocessing Pipeline"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center block">
+                  Iris preprocessing pipeline
+                </span>
+              </div>
+
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
+                A triplet loss encoder was used to encode the irises into robust feature embeddings that can effectively distinguish between different individuals' irises. Finally, a cosine similarity table was created and the top-k matches were returned.
+              </p>
+
+              <div className="max-w-xl mx-auto mb-8">
+                <div className="relative w-full h-26 lg:h-[457px] rounded-lg overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                  <Image
+                    src="/triplet.jpeg" 
+                    alt="Triplet loss encoder architecture"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center block">
+                  Triplet loss encoder architecture
+                </span>
+              </div>
+
+              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Multimodal Fusion</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
+                A weighted score-level fusion was used to bring together both the Fingerprint and Iris identification systems and provide a confident conclusion. This complete system allows for a more robust and accurate biometric identification system, while also handling edge-cases where one modality might fail.
+              </p>
+              <div className="max-w-3xl mx-auto mb-8">
+                <div className="relative w-full h-60 lg:h-[380px] rounded-lg overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                  <Image
+                    src="/Multimodal_result.jpg" 
+                    alt="Triplet loss encoder architecture"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="mt-2 text-xs text-gray-500 dark:text-gray-400 text-center block">
+                  Multimodal fusion results
+                </span>
+              </div>
+
+              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Evaluation & Results</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
+                Comprehensive evaluation includes FAR/FRR curves, ROC analysis, DET curves, and CMC curves for both verification and identification scenarios. The system demonstrates improved accuracy through multimodal fusion compared to individual biometric systems, ultimately solving the forensic investigation by identifying the perpetrator through combined fingerprint and iris evidence.
+              </p>
+              <div className="bg-gray-100 dark:bg-zinc-800 rounded-lg p-4 mb-6 max-w-2xl mx-auto shadow">
+                <h4 className="text-xl font-semibold mb-2 dark:text-white">Analysis for Suspect ID: 13</h4>
+                <div className="mb-2">
+                  <span className="font-semibold">Fingerprint Scores:</span>
+                  <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 text-base">
+                    <li>Label: <span className="font-mono">13</span>, Score: <span className="font-mono">0.9928</span></li>
+                    <li>Fingerprint Match Score: <span className="font-mono">0.9928</span></li>
+                  </ul>
+                </div>
+                <div className="mb-2">
+                  <span className="font-semibold">Iris Scores:</span>
+                  <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 text-base">
+                    <li>Label: <span className="font-mono">13</span>, Max Similarity: <span className="font-mono">0.9970</span></li>
+                    <li>Number of iris samples: <span className="font-mono">1</span></li>
+                    <li>Average Iris Score: <span className="font-mono">0.9970</span></li>
+                    <li>Maximum Iris Score: <span className="font-mono">0.9970</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <span className="font-semibold">Ranking:</span>
+                  <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 text-base">
+                    <li>Fingerprint Rank: <span className="font-mono">2</span></li>
+                    <li>Iris Rank: <span className="font-mono">2</span></li>
+                  </ul>
+                </div>
+              </div>
+
 
             </div>
           </div>

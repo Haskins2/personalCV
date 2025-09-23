@@ -99,6 +99,31 @@ const Page = () => {
 
           <div className="border-t border-gray-300 dark:border-zinc-700 my-12"></div>
 
+          {/* Project Description */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6 dark:text-white">
+              Project Description
+            </h2>
+            <div className="prose prose-lg max-w-none dark:prose-invert">
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              Retrieval-Augmented Generation (RAG) is a technique where a model retrieves relevant external information (in this case, wikipedia recipe datasets) and then uses it to generate more accurate, up-to-date, and context-aware answers. As LLM's face limitations in accessing and utilising up-to-date or domain-specific information, RAG offers a solution to enhance their contextual understanding and response accuracy This project implements a RAG pipeline, aiming to explore and analyse the advantages and disadvantages of Word-level TF-IDF retrieval.  
+              </p>
+              
+              <h3 className="text-xl font-semibold mb-3 dark:text-white">Key Components</h3>
+              <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
+                <li><strong>Data Preprocessing:</strong> Query Explansion, text normalisation, lemmatisation, and document indexing</li>
+                <li><strong>TF-IDF Retrieval:</strong> Term frequency-inverse document frequency scoring for relevant document retrieval</li>
+                <li><strong>Claude API Integration:</strong> Leveraging advanced language models for context-aware response generation</li>
+                <li><strong>Evaluation:</strong> Precision, Recall, F1 score and MAP to ensure robust evaluation</li>
+              </ul>
+
+              <h3 className="text-xl font-semibold mb-3 dark:text-white">Project Presentation</h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
+                Below are a few slide exerpts, describing a high level overview of this project.
+              </p>
+            </div>
+          </div>
+
           {project.presentationPath && (
             <VerticalSlidePresentation
               slides={extractSlidesFromKeynote(project.presentationPath)}

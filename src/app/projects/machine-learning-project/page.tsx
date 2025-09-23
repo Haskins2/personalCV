@@ -16,7 +16,7 @@ const Page = () => {
     date: "May 2025",
     githubUrl: "https://github.com/Haskins2/machine-learning-project",
     additionalImage: "/KAZ_env.jpg",
-    secondDescription: "Our agent was trained using an AWS EC2 instance, allowing us to scale up training beyond our local computational limits and achieve faster convergence. I personally developed the below training visualisation plot to which came in particularly useful when adjusting the agent's feature vectors. This allowed us to catch issues early and save on both limited computational resources and time. ",
+    secondDescription: "Our agent was trained using an AWS EC2 instance, allowing us to scale up training and achieve faster convergence. I personally developed the below RL training visualisation plot, which came in particularly useful when experimenting with the agent's feature vectors. This, similar to my DevOps internship experience, allowed us to catch issues early and save on both limited computational resources and time. ",
     secondImage: "/training_progress.jpg"
   };
 
@@ -92,7 +92,7 @@ const Page = () => {
             <div className="max-w-5xl mb-8">
               <h3 className="text-2xl font-semibold mb-3 dark:text-white">Details</h3>
               <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-              In this group project, we developed an intelligent agent for the Knights-Archers-Zombies (KAZ) game, a complex multi-entity environment. Utilising the PettingZoo KAZ environment and the RLlib framework, we implemented the Proximal Policy Optimisation (PPO) algorithm A key component of our approach is our inclusion of manual feature engineering, transforming raw environment states into a more meaningful feature vectors for the model to learn from. 
+              In this group project, we developed a reinforcement learning agent for the Atari-style game Knights-Archers-Zombies (KAZ). Utilising the PettingZoo KAZ environment and the RLlib framework, we implemented the Proximal Policy Optimisation (PPO) algorithm. A key component of our approach is our inclusion of manual feature engineering, transforming raw environment states into a more meaningful feature vectors for the model to learn from. 
               </p>
             </div>
             {project.additionalImage && (

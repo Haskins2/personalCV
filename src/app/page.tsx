@@ -63,8 +63,9 @@ export default function Home() {
       role: 'Software Engineering Intern',
       company: 'KX',
       period: 'Jun 2024 – Aug 2024',
-      description: ['Conducted benchmarks for the latest KDB.AI releases, providing performance results for the marketing sales teams',
-                    'Developed an internal ad-hoc benchmarking pipeline for developers to ensure possible performance degradation is caught at an early stage.',
+      description: [<>Worked as part of the <a href="https://kdb.ai" target="_blank" rel="noopener noreferrer" className="text-gray-600 underline dark:text-gray-300">KDB.AI</a> team.</>,
+                    'Conducted benchmarks for the latest KDB.AI releases, providing performance results for the marketing sales teams',
+                    'Developed a GitLab CI/CD benchmarking pipeline for developers to ensure possible performance degradation is caught at an early stage.',
                     'Utilised SonarQube for static code analysis, focusing on reducing code complexity, eliminating code smells bugs, and improving overall code maintainability'],
       skills: ['Python', 'Docker', 'AWS', 'SonarQube', 'Shell', 'Machine Learning'],
       image: '/KX_Logo.jpeg',
@@ -76,11 +77,22 @@ export default function Home() {
       role: 'Stage Event Crew',
       company: 'OSS Recruitment',
       period: 'Jan 2024 – May 2024',
-      description: ['Worked across the country at Ireland\'s largest festivals/concerts',
-        'Worked Front of House at the main stage at Electric Picnic \'23, operating main spotlights for Billie Eilish, Harry Styles & The Killers in front of a crowd of 70 thousand',
-        'Set up Guinness 6 Nation Rugby Grand Slam winning podium for a sold out stadium'
+      description: ['Worked as local crew member, assisting industry experts at Ireland\'s largest festivals/concerts',
+        'Spotlight operator at Electric Picnic \'23 main stage for headlining acts in front of a crowd of 70 thousand',
+        <>
+          Pitchside staff at Aviva Stadium, setting up{' '}
+          <a
+            href="https://www.irishrugby.ie/gallery/ireland-grand-slam-champions/#nanogallery/undefined/0/27"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 underline dark:text-gray-300"
+          >
+            Guinness 6 Nation Rugby Grand Slam winning podium
+          </a>{' '}
+          and pyrotechnics for a sold out stadium
+        </>
       ],
-      skills: ['Time management', 'Fast paced environment'],
+      skills: ['Team Collaboration', 'Communication Skills', 'Problem Solving Under Pressure'],
       image: '/OSS_Logo.jpeg',
       imageWidth: 130,
       imageHeight: 96,
@@ -90,10 +102,10 @@ export default function Home() {
       role: 'Bar Supervisor',
       company: 'HAP Solutions Group',
       period: 'May 2024 – Jul 2024',
-      description: ['Supervised a team of 107 bar staff at main stage at Electric Picnic \'25',
-        'Worked bartending shifts at large venues including the Aviva, Croke Park, Slane Castle and 3Arena'
+      description: ['Supervised main stage bar at Electric Picnic \'25, ensuring smooth operations during peak demand',
+        'Worked bartending shifts at Ireland\'s high-profile venues including the Aviva, Croke Park, Slane Castle and 3Arena'
       ],
-      skills: ['Supervising', 'Bartending'],
+      skills: ['Team Leadership', 'Staff Training', 'Operations Management'],
       image: '/HAP_Logo.jpg',
       imageWidth: 130,
       imageHeight: 96,

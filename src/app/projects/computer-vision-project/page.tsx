@@ -36,13 +36,15 @@ const Page = () => {
 
           <div className="max-w-6xl mx-auto mb-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-              <div className="mt-5 relative h-80 lg:h-60 rounded-lg overflow-hidden shadow-lg">
-                <Image
-                  src={project.imageUrl}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
+              <div className="mt-5 max-w-5xl mx-auto lg:max-w-none lg:mx-0">
+                <div className="relative h-80 lg:h-80 rounded-lg overflow-hidden shadow-lg">
+                  <Image
+                    src={project.imageUrl}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
 
               <div className="space-y-6">
@@ -124,7 +126,7 @@ const Page = () => {
                 <li>Batch size reduction during fine-tuning for better stability</li>
               </ul>
 
-              <div className="relative mx-auto w-full h-64 sm:h-80 lg:h-[420px] rounded-lg overflow-hidden shadow-lg mb-8">
+              <div className="relative w-full h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-lg mb-8">
                 <Image
                   src="/overfitting.jpg"
                   alt="Computer Vision project overview"
@@ -134,32 +136,46 @@ const Page = () => {
                 />
               </div>
 
-              <h3 className="text-2xl font-semibold mb-1 dark:text-white">Advanced Features</h3>
-              <ul className="list-disc pl-10 text-gray-700 dark:text-gray-300 mb-3 space-y-1">
-                <li>Class-weighted loss function to handle class imbalance</li>
-                <li>Data augmentation pipeline</li>
+              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Advanced Features</h3>
+              <ul className="list-disc pl-10 text-gray-700 dark:text-gray-300 mb-6 space-y-1">
+                <li>Class-weighted loss function was implemented to handle the severe class imbalance.</li>
+                <li>Data augmentation pipeline was used to improve model robustness and prevent overfitting on limited training dataset.</li>
               </ul>
-              <h3 className="text-2xl font-semibold mb-1 dark:text-white">Results</h3>
-              Our final system achieved a mean F1 score of 0.83, reflecting overall per-image multi-label performance. Below are a few two good outputs.
+              
+              <h3 className="text-2xl font-semibold mb-3 dark:text-white">Results</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6">
+                Our final system achieved a mean F1 score of 0.83, reflecting good overall per-image multi-label performance. The below images show two good predictions from our model.
+              </p>
             </div>
-            <div className="relative w-full md:w-2/3 h-64 sm:h-80 lg:h-[420px] rounded-lg overflow-hidden shadow-lg mb-4 md:mx-10">
-              <Image
-                src="/example.jpg"
-                alt="Computer Vision project overview"
-                fill
-                className="object-contain"
-                priority
-              />
+            
+            <div className="max-w-5xl mb-8">
+              <div className="relative w-full h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-lg">
+                <Image
+                  src="/example.jpg"
+                  alt="Computer Vision project overview"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
-            It is also important to take a look at a few poor results, and highlight the challenges that could affect performance.
-            <div className="relative w-full md:w-2/3 h-64 sm:h-80 lg:h-[420px] rounded-lg overflow-hidden shadow-lg mb-8 mt-3 md:mx-10">
-              <Image
-                src="/bad_example.jpg"
-                alt="Computer Vision project overview"
-                fill
-                className="object-contain"
-                priority
-              />
+            
+            <div className="max-w-5xl mb-6">
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                The following examples illustrate some of the model's incorrect predictions, highlighting the types of challenges and limitations that impacted overall performance. Here we could criticise the ground truth, asking questions such as "Is it fair to be penalising the model if objects are so heavily obstructed?"
+              </p>
+            </div>
+            
+            <div className="max-w-5xl mb-8">
+              <div className="relative w-full h-96 lg:h-[500px] rounded-lg overflow-hidden shadow-lg">
+                <Image
+                  src="/bad_example.jpg"
+                  alt="Computer Vision project overview"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
