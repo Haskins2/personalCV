@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from 'next-themes'
 import { AnimatePresenceWrapper } from '@/components/AnimatePresenceWrapper'
-import WorkInProgressBanner from '@/components/WorkInProgressBanner'
 import Script from 'next/script'
 
 const geistSans = localFont({
@@ -42,7 +41,6 @@ export default function RootLayout({
           `}
         </Script>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <WorkInProgressBanner />
           <AnimatePresenceWrapper>
             {children}
           </AnimatePresenceWrapper>
