@@ -91,11 +91,12 @@ jobs:
 
           cd ~/personalCV
 
-          echo "=== Stopping current PM2 process ==="
-          if pm2 list | grep -q "personalCV"; then
-            pm2 stop personalCV || true
-            pm2 delete personalCV || true
-          fi
+          echo "=== Stopping current PM2 processes ==="
+          # Stop any existing processes (handles both old and new naming)
+          pm2 stop personalCV || true
+          pm2 delete personalCV || true
+          pm2 stop personal-cv || true
+          pm2 delete personal-cv || true
 
           echo "=== Backing up current build ==="
           if [ -d ".next" ]; then
@@ -112,6 +113,7 @@ jobs:
 
           echo "=== Starting application ==="
           pm2 start npm --name "personalCV" -- start
+          pm2 save
 
           echo "=== Verifying deployment ==="
           sleep 5
