@@ -7,8 +7,28 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { PageTransition } from "@/components/PageTransition";
 
+interface Education {
+  degree: string;
+  institution: string;
+  period: string;
+  description: (string | JSX.Element)[];
+  modules: string[];
+}
+
+interface Experience {
+  role: string;
+  company: string;
+  period: string;
+  description: (string | JSX.Element)[];
+  skills: string[];
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageMarginY: number;
+}
+
 export default function Home() {
-  const education = [
+  const education: Education[] = [
     {
       degree: "MAI in Computer Engineering",
       institution: "Trinity College Dublin",
@@ -63,7 +83,7 @@ export default function Home() {
     },
   ];
 
-  const experiences = [
+  const experiences: Experience[] = [
     {
       role: "Software Engineering Intern",
       company: "KX",
@@ -283,13 +303,12 @@ export default function Home() {
                         </p>
                       )}
 
-                      {Array.isArray((edu as any).modules) &&
-                      (edu as any).modules.length > 0 ? (
+                      {edu.modules && edu.modules.length > 0 ? (
                         <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 pl-3">
                           <span className="font-semibold dark:text-white">
                             Highlighted modules:
                           </span>{" "}
-                          {(edu as any).modules.join(", ")}
+                          {edu.modules.join(", ")}
                         </p>
                       ) : null}
                     </div>
@@ -320,8 +339,8 @@ export default function Home() {
                           </p>
                           {Array.isArray(exp.description) ? (
                             <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mb-3">
-                              {exp.description.map((point) => (
-                                <li key={point}>{point}</li>
+                              {exp.description.map((point, index) => (
+                                <li key={index}>{point}</li>
                               ))}
                             </ul>
                           ) : (
@@ -348,17 +367,17 @@ export default function Home() {
                           <div
                             className="hidden md:flex shrink-0 overflow-hidden rounded-md mr-3 items-center justify-center"
                             style={{
-                              height: (exp as any).imageHeight ?? 96,
-                              width: (exp as any).imageWidth ?? 96,
-                              marginTop: (exp as any).imageMarginY ?? 0,
-                              marginBottom: (exp as any).imageMarginY ?? 0,
+                              height: exp.imageHeight ?? 96,
+                              width: exp.imageWidth ?? 96,
+                              marginTop: exp.imageMarginY ?? 0,
+                              marginBottom: exp.imageMarginY ?? 0,
                             }}
                           >
                             <Image
-                              src={exp.image as unknown as string}
+                              src={exp.image}
                               alt="Experience image"
-                              width={(exp as any).imageWidth ?? 96}
-                              height={(exp as any).imageHeight ?? 96}
+                              width={exp.imageWidth ?? 96}
+                              height={exp.imageHeight ?? 96}
                               className="object-contain"
                             />
                           </div>
@@ -375,7 +394,7 @@ export default function Home() {
                 </h2>
                 <ul className="list-disc list-inside text-gray-700 mb-2 dark:text-white">
                   <li>
-                    I took part in the '
+                    I took part in the &apos;
                     <a
                       href="https://hacktrinity.com"
                       target="_blank"
@@ -384,7 +403,7 @@ export default function Home() {
                     >
                       GenAI x Law HackTrinity Hackathon 2024
                     </a>
-                    ' and created an AI Visa information assistant in 3 days.
+                    &apos; and created an AI Visa information assistant in 3 days.
                     See my project{" "}
                     <Link
                       href="/projects"
@@ -402,7 +421,7 @@ export default function Home() {
                   Hobbies
                 </h2>
                 <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-4">
-                  I'm also passionate about photography, starting when I bought
+                  I&apos;m also passionate about photography, starting when I bought
                   a €30 film camera from a car boot sale in Dresden. This
                   complements my love for travelling, see some photos below.
                 </p>

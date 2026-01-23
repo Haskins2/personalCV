@@ -80,7 +80,7 @@ const ProjectPageView: React.FC<ProjectPageViewProps> = ({ project }) => {
                 )}
 
                 <div className="flex gap-4">
-                  {project.link.startsWith('http') && (
+                  {project.link && project.link.startsWith('http') && (
                     <Link href={project.link} target="_blank" rel="noopener noreferrer">
                       <Button className="bg-[#14171f] text-white hover:bg-[#14171f]/90 dark:bg-zinc-200 dark:text-black">
                         View Live Project
@@ -209,8 +209,7 @@ const ProjectPageView: React.FC<ProjectPageViewProps> = ({ project }) => {
 
           {project.presentationPath && (
             <VerticalSlidePresentation
-              slides={extractSlidesFromKeynote(project.presentationPath)}
-              title="Project Presentation"
+              slides={extractSlidesFromKeynote()}
             />
           )}
 

@@ -2,12 +2,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { PageTransition } from "@/components/PageTransition";
-import VerticalSlidePresentation from "@/components/VerticalSlidePresentation";
 
 const Page = () => {
   const project = {
@@ -162,7 +160,7 @@ const Page = () => {
             
             <div className="max-w-5xl mb-6">
               <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-                The following examples illustrate some of the model's incorrect predictions, highlighting the types of challenges and limitations that impacted overall performance. Here we could criticise the ground truth, asking questions such as "Is it fair to be penalising the model if objects are so heavily obstructed?"
+                The following examples illustrate some of the model&apos;s incorrect predictions, highlighting the types of challenges and limitations that impacted overall performance. Here we could criticise the ground truth, asking questions such as &quot;Is it fair to be penalising the model if objects are so heavily obstructed?&quot;
               </p>
             </div>
             

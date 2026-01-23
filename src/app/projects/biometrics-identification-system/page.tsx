@@ -2,12 +2,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { PageTransition } from "@/components/PageTransition";
-import VerticalSlidePresentation from "@/components/VerticalSlidePresentation";
 
 const Page = () => {
   const project = {
@@ -150,7 +148,7 @@ const Page = () => {
 
               <h3 className="text-2xl font-semibold mb-3 dark:text-white">Iris Recognition</h3>
               <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
-                Similar to before, a custom preprocessing & enhancement system was applied to the raw iris images. Iris images underwent segmentation by means of Hough transform, and Daugman's rubber sheet model was used to normalise/unwrap the irises.
+Similar to before, a custom preprocessing & enhancement system was applied to the raw iris images. Iris images underwent segmentation by means of Hough transform, and Daugman&apos;s rubber sheet model was used to normalise/unwrap the irises.
               </p>
               
               <div className="max-w-5xl mx-auto mb-8">
@@ -168,7 +166,7 @@ const Page = () => {
               </div>
 
               <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
-                A triplet loss encoder was used to encode the irises into robust feature embeddings that can effectively distinguish between different individuals' irises. Finally, a cosine similarity table was created and the top-k matches were returned.
+                A triplet loss encoder was used to encode the irises into robust feature embeddings that can effectively distinguish between different individuals&apos; irises. Finally, a cosine similarity table was created and the top-k matches were returned.
               </p>
 
               <div className="max-w-xl mx-auto mb-8">

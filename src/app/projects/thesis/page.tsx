@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ThemeToggle";

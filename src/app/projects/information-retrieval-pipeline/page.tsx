@@ -106,7 +106,7 @@ const Page = () => {
             </h2>
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Retrieval-Augmented Generation (RAG) is a technique where a model retrieves relevant external information (in this case, wikipedia recipe datasets) and then uses it to generate more accurate, up-to-date, and context-aware answers. As LLM's face limitations in accessing and utilising up-to-date or domain-specific information, RAG offers a solution to enhance their contextual understanding and response accuracy This project implements a RAG pipeline, aiming to explore and analyse the advantages and disadvantages of Word-level TF-IDF retrieval.  
+              Retrieval-Augmented Generation (RAG) is a technique where a model retrieves relevant external information (in this case, wikipedia recipe datasets) and then uses it to generate more accurate, up-to-date, and context-aware answers. As LLM&apos;s face limitations in accessing and utilising up-to-date or domain-specific information, RAG offers a solution to enhance their contextual understanding and response accuracy This project implements a RAG pipeline, aiming to explore and analyse the advantages and disadvantages of Word-level TF-IDF retrieval.  
               </p>
               
               <h3 className="text-xl font-semibold mb-3 dark:text-white">Key Components</h3>
@@ -126,8 +126,7 @@ const Page = () => {
 
           {project.presentationPath && (
             <VerticalSlidePresentation
-              slides={extractSlidesFromKeynote(project.presentationPath)}
-              title="Project Presentation"
+              slides={extractSlidesFromKeynote()}
             />
           )}
         </div>

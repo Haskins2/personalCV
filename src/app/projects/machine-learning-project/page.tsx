@@ -125,7 +125,7 @@ const Page = () => {
               </div>
             )}
             <h3 className="text-2xl font-semibold mt-8 dark:text-white mb-4">Results</h3>
-            Our trained agent's performance was submitted to a course leaderboard, with over 50 teams of 2 entered. With our final submission, we were placed 15th in the competition, demonstrating solid performance & placing us in the top 30% of all participating teams.
+            Our trained agent&apos;s performance was submitted to a course leaderboard, with over 50 teams of 2 entered. With our final submission, we were placed 15th in the competition, demonstrating solid performance & placing us in the top 30% of all participating teams.
           </div>
         </div>
       </div>
