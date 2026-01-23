@@ -100,7 +100,7 @@ tests/
 
 ## CI/CD Pipeline
 
-This project uses GitHub Actions for continuous integration and deployment.
+This project uses GitHub Actions for CI/CD.
 
 ### Workflows
 
@@ -126,25 +126,20 @@ Runs on pushes to `main` branch only:
 
 ### GitHub Secrets Required
 
-The following secrets must be configured in your repository settings:
+The following secrets must be configured in the repo settings:
 
-| Secret | Description |
-|--------|-------------|
-| `LINODE_SSH_HOST` | Server IP address (e.g., `172.237.120.179`) |
-| `LINODE_SSH_USER` | SSH username (e.g., `root`) |
-| `LINODE_SSH_KEY` | Private SSH key for server access |
+| Secret            | Description                       |
+| ----------------- | --------------------------------- |
+| `LINODE_SSH_HOST` | Server IP address                 |
+| `LINODE_SSH_USER` | SSH username                      |
+| `LINODE_SSH_KEY`  | Private SSH key for server access |
 
 ### CI Status Badges
 
-Add these badges to track CI status:
-- CI: `![CI](https://github.com/YOUR_USERNAME/personalCV/actions/workflows/ci.yml/badge.svg)`
-- Deploy: `![Deploy](https://github.com/YOUR_USERNAME/personalCV/actions/workflows/deploy.yml/badge.svg)`
+- CI: `![CI](https://github.com/Haskins2/personalCV/actions/workflows/ci.yml/badge.svg)`
+- Deploy: `![Deploy](https://github.com/Haskins2/personalCV/actions/workflows/deploy.yml/badge.svg)`
 
 ## Deployment
-
-This project supports two deployment methods:
-
-### Automatic Deployment (Recommended)
 
 Push to the `main` branch to trigger automatic deployment via GitHub Actions. The workflow will:
 
@@ -152,37 +147,6 @@ Push to the `main` branch to trigger automatic deployment via GitHub Actions. Th
 2. If all checks pass, deploy to the production server
 3. Perform a health check to verify the deployment
 
-### Manual Deployment
-
-To deploy manually, run the `deploy.sh` script from the project root:
-
-```bash
-chmod +x deploy.sh  # Ensure the script is executable (only needed once)
-./deploy.sh
-```
-
-The script performs the following steps:
-
-1.  **Local Build**: Runs `npm run build` locally to ensure the project compiles successfully.
-2.  **Package**: Creates a deployment package with the built application, static files, and configuration.
-3.  **Upload**: Uploads the package to the server via `SCP`.
-4.  **Remote Deploy**:
-    - Connects to the server via SSH.
-    - Stops the existing PM2 process.
-    - Backs up the previous build.
-    - Extracts the new build.
-    - Installs production dependencies (`npm ci --only=production`).
-    - Restarts the application using PM2.
-    - Cleans up temporary files.
-
 ### Server Configuration
 
-The deployment targets the server at `172.237.120.179` and assumes the application lives in `~/personalCV`. It uses [PM2](https://pm2.keymetrics.io/) to manage the application process on the server.
-
-### Server Requirements
-
-The server should have:
-
-- Node.js installed.
-- PM2 installed globally (`npm install -g pm2`).
-- SSH access configured for the deploying user.
+The deployment targets the production server and assumes the application lives in `~/personalCV`. It uses [PM2](https://pm2.keymetrics.io/) to manage the application process on the server.
