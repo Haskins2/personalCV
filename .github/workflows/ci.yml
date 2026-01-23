@@ -6,6 +6,8 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
+  # Allow this workflow to be called by other workflows (e.g., deploy.yml)
+  workflow_call:
 
 # Cancel in-progress runs for the same branch
 concurrency:
