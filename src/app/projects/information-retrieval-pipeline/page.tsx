@@ -12,19 +12,20 @@ import { extractSlidesFromKeynote } from "@/lib/presentationUtils";
 const Page = () => {
   const project = {
     title: "Information Retrieval Pipeline",
-    description: "A RAG chat-bot project involving data preprocessing, TF-IDF retrieval and generating responses using Claude's API.",
+    description:
+      "A RAG chat-bot project involving data preprocessing, TF-IDF retrieval and generating responses using Claude's API.",
     imageUrl: "/RAG.jpg",
     category: "Solo",
     date: "May 2025",
     presentationPath: "/IRSE_Presentation_html/index.html",
     githubUrl: "https://github.com/Haskins2/IRSE",
-    link: "/projects/information-retrieval-pipeline"
+    link: "/projects/information-retrieval-pipeline",
   };
 
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Projects", href: "/projects" },
-    { label: project.title }
+    { label: project.title },
   ];
 
   return (
@@ -53,7 +54,10 @@ const Page = () => {
                     {project.title}
                   </h1>
                   <div className="flex items-center gap-4 mb-4">
-                    <Badge variant="outline" className="dark:bg-zinc-600 dark:text-white">
+                    <Badge
+                      variant="outline"
+                      className="dark:bg-zinc-600 dark:text-white"
+                    >
                       {project.category}
                     </Badge>
                     <span className="text-gray-600 dark:text-gray-400">
@@ -73,10 +77,19 @@ const Page = () => {
 
                 {project.githubUrl && (
                   <div className="flex justify-left mb-0">
-                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="w-full md:w-auto">
+                    <Link
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full md:w-auto"
+                    >
                       <Button className="w-full md:w-auto bg-gray-800 hover:bg-gray-700 text-white dark:bg-gray-200 dark:hover:bg-gray-300 dark:text-black flex items-center mb-0">
-                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        <svg
+                          className="w-5 h-5 mr-2"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                         See GitHub
                       </Button>
@@ -85,8 +98,12 @@ const Page = () => {
                 )}
 
                 <div className="flex gap-4">
-                  {project.link?.startsWith('http') && (
-                    <Link href={project.link} target="_blank" rel="noopener noreferrer">
+                  {project.link?.startsWith("http") && (
+                    <Link
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <Button className="bg-[#14171f] text-white hover:bg-[#14171f]/90 dark:bg-zinc-200 dark:text-black">
                         View Live Project
                       </Button>
@@ -106,29 +123,51 @@ const Page = () => {
             </h2>
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Retrieval-Augmented Generation (RAG) is a technique where a model retrieves relevant external information (in this case, wikipedia recipe datasets) and then uses it to generate more accurate, up-to-date, and context-aware answers. As LLM's face limitations in accessing and utilising up-to-date or domain-specific information, RAG offers a solution to enhance their contextual understanding and response accuracy This project implements a RAG pipeline, aiming to explore and analyse the advantages and disadvantages of Word-level TF-IDF retrieval.  
+                Retrieval-Augmented Generation (RAG) is a technique where a
+                model retrieves relevant external information (in this case,
+                wikipedia recipe datasets) and then uses it to generate more
+                accurate, up-to-date, and context-aware answers. As LLM&apos;s
+                face limitations in accessing and utilising up-to-date or
+                domain-specific information, RAG offers a solution to enhance
+                their contextual understanding and response accuracy This
+                project implements a RAG pipeline, aiming to explore and analyse
+                the advantages and disadvantages of Word-level TF-IDF retrieval.
               </p>
-              
-              <h3 className="text-xl font-semibold mb-3 dark:text-white">Key Components</h3>
+
+              <h3 className="text-xl font-semibold mb-3 dark:text-white">
+                Key Components
+              </h3>
               <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
-                <li><strong>Data Preprocessing:</strong> Query Explansion, text normalisation, lemmatisation, and document indexing</li>
-                <li><strong>TF-IDF Retrieval:</strong> Term frequency-inverse document frequency scoring for relevant document retrieval</li>
-                <li><strong>Claude API Integration:</strong> Leveraging advanced language models for context-aware response generation</li>
-                <li><strong>Evaluation:</strong> Precision, Recall, F1 score and MAP to ensure robust evaluation</li>
+                <li>
+                  <strong>Data Preprocessing:</strong> Query Explansion, text
+                  normalisation, lemmatisation, and document indexing
+                </li>
+                <li>
+                  <strong>TF-IDF Retrieval:</strong> Term frequency-inverse
+                  document frequency scoring for relevant document retrieval
+                </li>
+                <li>
+                  <strong>Claude API Integration:</strong> Leveraging advanced
+                  language models for context-aware response generation
+                </li>
+                <li>
+                  <strong>Evaluation:</strong> Precision, Recall, F1 score and
+                  MAP to ensure robust evaluation
+                </li>
               </ul>
 
-              <h3 className="text-xl font-semibold mb-3 dark:text-white">Project Presentation</h3>
+              <h3 className="text-xl font-semibold mb-3 dark:text-white">
+                Project Presentation
+              </h3>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                Below are a few slide exerpts, describing a high level overview of this project.
+                Below are a few slide exerpts, describing a high level overview
+                of this project.
               </p>
             </div>
           </div>
 
           {project.presentationPath && (
-            <VerticalSlidePresentation
-              slides={extractSlidesFromKeynote(project.presentationPath)}
-              title="Project Presentation"
-            />
+            <VerticalSlidePresentation slides={extractSlidesFromKeynote()} />
           )}
         </div>
       </div>
@@ -137,5 +176,3 @@ const Page = () => {
 };
 
 export default Page;
-
-

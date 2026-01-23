@@ -11,7 +11,7 @@ export interface KeynotePresentationData {
   slideCount: number;
 }
 
-export function extractSlidesFromKeynote(presentationPath: string): Slide[] {
+export function extractSlidesFromKeynote(): Slide[] {
   const slideTitles = [
     "Title Slide",
     "Problem Statement", 

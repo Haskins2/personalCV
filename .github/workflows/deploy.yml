@@ -1,0 +1,184 @@
+name: Deploy
+
+# Only run on pushes to main branch
+on:
+  push:
+    branches: [main]
+
+# Ensure only one deployment runs at a time
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  # Run all CI checks first
+  ci:
+    name: CI Checks
+    uses: ./.github/workflows/ci.yml
+
+  # Deploy to Linode server
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [ci]
+    # Only deploy if CI passed and we're on main branch
+    if: github.ref == 'refs/heads/main' && needs.ci.result == 'success'
+
+    environment:
+      name: production
+      url: https://stephenhaskins.com
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Create deployment package
+        run: |
+          echo "Creating deployment package..."
+          mkdir -p deploy_temp
+
+          # Copy necessary files (matching deploy.sh logic)
+          cp -r .next deploy_temp/
+          cp -r public deploy_temp/
+          cp -r src deploy_temp/
+          cp package.json deploy_temp/
+          cp package-lock.json deploy_temp/
+          cp next.config.js deploy_temp/
+          cp tailwind.config.ts deploy_temp/
+          cp tsconfig.json deploy_temp/
+          cp postcss.config.mjs deploy_temp/
+
+          # Create tar archive
+          tar -czf deploy.tar.gz -C deploy_temp .
+
+          echo "Package created: $(ls -lh deploy.tar.gz | awk '{print $5}')"
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.LINODE_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Add server to known hosts to avoid prompt
+          ssh-keyscan -H ${{ secrets.LINODE_SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Upload package to server
+        run: |
+          echo "Uploading deployment package to server..."
+          scp -i ~/.ssh/deploy_key deploy.tar.gz \
+            ${{ secrets.LINODE_SSH_USER }}@${{ secrets.LINODE_SSH_HOST }}:~/personalCV/
+
+      - name: Deploy on server
+        run: |
+          echo "Deploying application on server..."
+          ssh -i ~/.ssh/deploy_key \
+            ${{ secrets.LINODE_SSH_USER }}@${{ secrets.LINODE_SSH_HOST }} << 'EOF'
+
+          set -e  # Exit on any error
+
+          cd ~/personalCV
+
+          echo "=== Stopping current PM2 process ==="
+          if pm2 list | grep -q "personalCV"; then
+            pm2 stop personalCV || true
+            pm2 delete personalCV || true
+          fi
+
+          echo "=== Backing up current build ==="
+          if [ -d ".next" ]; then
+            BACKUP_NAME=".next.backup.$(date +%Y%m%d_%H%M%S)"
+            mv .next "$BACKUP_NAME"
+            echo "Backup created: $BACKUP_NAME"
+          fi
+
+          echo "=== Extracting new build ==="
+          tar -xzf deploy.tar.gz
+
+          echo "=== Installing production dependencies ==="
+          npm ci --only=production
+
+          echo "=== Starting application ==="
+          pm2 start npm --name "personalCV" -- start
+
+          echo "=== Verifying deployment ==="
+          sleep 5
+          if pm2 list | grep -q "personalCV"; then
+            pm2 show personalCV
+            echo "Application started successfully!"
+          else
+            echo "ERROR: Application failed to start"
+            exit 1
+          fi
+
+          echo "=== Cleaning up ==="
+          rm -f deploy.tar.gz
+
+          # Keep only the 3 most recent backups
+          ls -dt .next.backup.* 2>/dev/null | tail -n +4 | xargs rm -rf 2>/dev/null || true
+
+          echo "=== Deployment complete! ==="
+          EOF
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
+
+      - name: Health check
+        run: |
+          echo "Waiting for server to be ready..."
+          sleep 10
+
+          # Perform basic health check
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            --max-time 30 \
+            http://${{ secrets.LINODE_SSH_HOST }}:3000/ || echo "000")
+
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "Health check passed! Server is responding with HTTP $HTTP_STATUS"
+          else
+            echo "Warning: Health check returned HTTP $HTTP_STATUS"
+            echo "The server may still be starting up, or nginx may be handling traffic"
+            # Don't fail the build - the server might be behind nginx
+          fi
+
+      - name: Deployment summary
+        run: |
+          echo "============================================"
+          echo "Deployment completed successfully!"
+          echo "============================================"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Deployed by: ${{ github.actor }}"
+          echo "Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "============================================"
+
+  # Notify on deployment failure
+  notify-failure:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: failure()
+
+    steps:
+      - name: Create failure summary
+        run: |
+          echo "## Deployment Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Actor:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the workflow logs for details." >> $GITHUB_STEP_SUMMARY
