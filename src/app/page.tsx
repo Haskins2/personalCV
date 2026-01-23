@@ -403,8 +403,8 @@ export default function Home() {
                     >
                       GenAI x Law HackTrinity Hackathon 2024
                     </a>
-                    &apos; and created an AI Visa information assistant in 3 days.
-                    See my project{" "}
+                    &apos; and created an AI Visa information assistant in 3
+                    days. See my project{" "}
                     <Link
                       href="/projects"
                       className=" dark:text-blue-400 underline"
@@ -421,8 +421,8 @@ export default function Home() {
                   Hobbies
                 </h2>
                 <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-4">
-                  I&apos;m also passionate about photography, starting when I bought
-                  a €30 film camera from a car boot sale in Dresden. This
+                  I&apos;m also passionate about photography, starting when I
+                  bought a €30 film camera from a car boot sale in Dresden. This
                   complements my love for travelling, see some photos below.
                 </p>
                 <Link href="/photography">

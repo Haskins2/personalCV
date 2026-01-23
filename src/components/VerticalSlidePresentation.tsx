@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 
 interface Slide {
   id: string;
@@ -14,31 +14,34 @@ interface VerticalSlidePresentationProps {
   slides: Slide[];
 }
 
-const VerticalSlidePresentation: React.FC<VerticalSlidePresentationProps> = ({ 
-  slides
+const VerticalSlidePresentation: React.FC<VerticalSlidePresentationProps> = ({
+  slides,
 }) => {
   return (
     <div className="max-w-6xl">
-      <div 
-        style={{ 
-          margin: 100, 
+      <div
+        style={{
+          margin: 100,
           padding: 0,
           lineHeight: 0,
-          fontSize: 0
+          fontSize: 0,
         }}
       >
         {slides.map((slide, index) => (
-          <div key={slide.id} style={{ position: 'relative', width: '100%', height: 'auto' }}>
+          <div
+            key={slide.id}
+            style={{ position: "relative", width: "100%", height: "auto" }}
+          >
             <Image
               src={slide.thumbnail}
               alt={`Slide ${index + 1}`}
               width={0}
               height={0}
               sizes="100vw"
-              style={{ 
-                width: '100%', 
-                height: 'auto',
-                display: 'block',
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
               }}
             />
           </div>
