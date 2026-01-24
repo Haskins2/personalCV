@@ -3,6 +3,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { PageTransition } from "@/components/PageTransition";
+import Image from "next/image";
 
 const Page = () => {
   const project = {
@@ -33,11 +34,13 @@ const Page = () => {
           <div className="max-w-6xl mx-auto mb-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               <div className="mt-5 max-w-5xl mx-auto lg:max-w-none lg:mx-0">
-                <div className="relative h-80 lg:h-80 rounded-lg overflow-hidden shadow-lg bg-gray-200 dark:bg-zinc-800 flex items-center justify-center">
-                  {/* Placeholder for image */}
-                  <span className="text-gray-500 dark:text-gray-400">
-                    Slot-based Driving Image Placeholder
-                  </span>
+                <div className="relative h-80 lg:h-60 rounded-lg overflow-hidden shadow-lg">
+                  <Image
+                    src="/projects/thesis/db21j_robot.png"
+                    alt="Slot-based Driving"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </div>
 
@@ -82,7 +85,7 @@ const Page = () => {
                 This thesis ...
               </p>
               <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed text-left mb-6">
-                <i>More details coming soon...</i>
+                More details coming soon...
               </p>
             </div>
           </div>

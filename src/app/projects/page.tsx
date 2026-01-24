@@ -22,13 +22,13 @@ interface Project {
 const projects: Project[] = [
   {
     id: 7,
-    title: "Slot-based Driving",
+    title: "Thesis: Slot-based Driving",
     description:
       "Implementation of slot-based driving on a platoon of autonomous robots.",
-    imageUrl: "/images/placeholder-thesis.jpg",
-    category: "Thesis",
+    imageUrl: "/projects/thesis/db21j_robot.png",
+    category: "Solo",
     date: "Ongoing",
-    skills: ["Simulation", "Autonomous Vehicles", "Traffic optimisation"],
+    skills: ["Python", "Docker", "ROS & Robotics", "RL"],
     link: "/projects/thesis",
   },
   {
