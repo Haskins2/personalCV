@@ -204,8 +204,7 @@ export default function Home() {
                 Stephen Haskins
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 dark:text-gray-300">
-                Fifth year Computer Engineering student at Trinity College
-                Dublin.
+                Masters Computer Engineering student at Trinity College Dublin.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link href="/projects">
