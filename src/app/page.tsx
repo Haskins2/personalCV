@@ -13,6 +13,8 @@ interface Education {
   period: string;
   description: (string | JSX.Element)[];
   modules: string[];
+  image: string;
+  imageAlt: string;
 }
 
 interface Experience {
@@ -35,16 +37,16 @@ export default function Home() {
       period: "2021 – Present",
       description: [
         <>
-          I have recently finished a{" "}
+          I have recently finished a 5 year{" "}
           <a
             href="https://www.tcd.ie/engineering/current-students/undergraduate/engineering/year-five-mai/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 underline dark:text-gray-300"
           >
-            Masters in Computer Engineering
+            Masters in Computer Engineering 
          </a> 
-          .
+          . I am expected to graduate October 22nd.
   
         </>,
       ],
@@ -56,6 +58,8 @@ export default function Home() {
         "IoT Systems",
         "Urban Computing",
       ],
+      image: "/icons/TCD.png",
+      imageAlt: "Trinity College Dublin logo",
     },
     {
       degree: "Erasmus at KU Leuven",
@@ -81,6 +85,8 @@ export default function Home() {
         "Probabilistic Graphical Models",
         "AI Ethics & Society",
       ],
+      image: "/icons/KUL.png",
+      imageAlt: "KU Leuven logo",
     },
   ];
 
@@ -270,42 +276,64 @@ export default function Home() {
                 <h2 className="text-xl sm:text-2xl font-semibold mb-3 dark:text-white">
                   Education
                 </h2>
-                <div className="mb-6 pl-4">
+                <div className="grid gap-4 mb-6 lg:grid-cols-2">
                   {education.map((edu) => (
-                    <div
+                    <Card
                       key={`${edu.degree}-${edu.institution}`}
-                      className="mb-4"
+                      className="group flex flex-col overflow-hidden border-gray-200 bg-white/70 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800/70"
                     >
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
-                        {edu.degree}
-                      </h3>
-                      <p className="text-gray-700 dark:text-gray-300 font-medium">
-                        {edu.institution}
-                      </p>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">
-                        {edu.period}
-                      </p>
-                      {Array.isArray(edu.description) ? (
-                        <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mb-3">
-                          {edu.description.map((point, index) => (
-                            <li key={index}>{point}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="text-gray-600 dark:text-gray-300 mb-3">
-                          {edu.description}
-                        </p>
-                      )}
+                      <div className="flex min-h-24 items-center gap-4 border-b border-gray-200 bg-gray-50/80 p-4 dark:border-zinc-700 dark:bg-zinc-900/40">
+                        <div className="flex h-16 w-20 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white p-2 shadow-sm sm:h-20 sm:w-24 dark:border-zinc-600">
+                          <Image
+                            src={edu.image}
+                            alt={edu.imageAlt}
+                            width={120}
+                            height={80}
+                            className="h-full w-full object-contain"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-lg font-semibold leading-snug text-gray-900 sm:text-xl dark:text-white">
+                            {edu.degree}
+                          </h3>
+                          <p className="mt-1 font-medium text-gray-700 dark:text-gray-300">
+                            {edu.institution}
+                          </p>
+                        </div>
+                      </div>
 
-                      {edu.modules && edu.modules.length > 0 ? (
-                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 pl-3">
-                          <span className="font-semibold dark:text-white">
-                            Highlighted modules:
-                          </span>{" "}
-                          {edu.modules.join(", ")}
-                        </p>
-                      ) : null}
-                    </div>
+                      <div className="flex flex-1 flex-col p-4 sm:p-5">
+                        <div>
+                          <span className="inline-flex rounded-full border border-gray-200 bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 dark:border-zinc-600 dark:bg-zinc-700 dark:text-gray-300">
+                            {edu.period}
+                          </span>
+                        </div>
+                        <div className="mt-4 text-sm leading-relaxed text-gray-600 sm:text-base dark:text-gray-300">
+                          {edu.description.map((point, index) => (
+                            <p key={index}>{point}</p>
+                          ))}
+                        </div>
+
+                        {edu.modules.length > 0 ? (
+                          <div className="mt-5 border-t border-gray-200 pt-4 dark:border-zinc-700">
+                            <h4 className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                              Highlighted modules
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {edu.modules.map((module) => (
+                                <Badge
+                                  key={module}
+                                  variant="secondary"
+                                  className="border-gray-300 bg-gray-200 font-normal text-gray-700 dark:border-zinc-500 dark:bg-zinc-600 dark:text-gray-300"
+                                >
+                                  {module}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
+                    </Card>
                   ))}
                 </div>
 
