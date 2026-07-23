@@ -1,9 +1,7 @@
 # Personal CV Project
 
-[![CI](https://github.com/Haskins2/personalCV/actions/workflows/ci.yml/badge.svg)](https://github.com/Haskins2/personalCV/actions/workflows/ci.yml)
-[![Deploy](https://github.com/Haskins2/personalCV/actions/workflows/deploy.yml/badge.svg)](https://github.com/Haskins2/personalCV/actions/workflows/deploy.yml)
-
-This is a Next.js project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It serves as a personal CV and portfolio website.
+[CI](https://github.com/Haskins2/personalCV/actions/workflows/ci.yml)  
+[Deploy](https://github.com/Haskins2/personalCV/actions/workflows/deploy.yml)
 
 ## Local Development
 
@@ -13,12 +11,13 @@ Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
 
 ### Installation
 
-1.  Clone the repository (if you haven't already).
-2.  Install dependencies:
-
-    ```bash
+1. Clone the repository (if you haven't already).
+2. Install dependencies:
+  ```bash
     npm install
-    ```
+  ```
+
+
 
 ### Running Locally
 
@@ -34,17 +33,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 To simulate exactly what will run on the server, you can build and start the production version locally:
 
-1.  Build the project:
-
-    ```bash
+1. Build the project:
+  ```bash
     npm run build
-    ```
-
-2.  Start the production server:
-
-    ```bash
+  ```
+2. Start the production server:
+  ```bash
     npm run start
-    ```
+  ```
+
+
 
 ## Testing
 
@@ -75,6 +73,8 @@ npm run test:e2e:headed
 npm run test:all
 ```
 
+
+
 ### Test Structure
 
 ```
@@ -92,17 +92,23 @@ tests/
     └── navigation.spec.ts
 ```
 
+
+
 ### Writing Tests
 
 - **Unit tests**: Place in `__tests__` directories next to the code being tested
 - **E2E tests**: Place in `tests/e2e/` directory
 - Tests run automatically on every PR via GitHub Actions
 
+
+
 ## CI/CD Pipeline
 
 This project uses GitHub Actions for CI/CD.
 
 ### Workflows
+
+
 
 #### CI Workflow (`.github/workflows/ci.yml`)
 
@@ -124,9 +130,12 @@ Runs on pushes to `main` branch only:
 2. If checks pass, deploys to the Linode production server
 3. Performs health check after deployment
 
+
+
 ### GitHub Secrets Required
 
 The following secrets must be configured in the repo settings:
+
 
 | Secret            | Description                       |
 | ----------------- | --------------------------------- |
@@ -134,10 +143,15 @@ The following secrets must be configured in the repo settings:
 | `LINODE_SSH_USER` | SSH username                      |
 | `LINODE_SSH_KEY`  | Private SSH key for server access |
 
+
+
+
 ### CI Status Badges
 
 - CI: `![CI](https://github.com/Haskins2/personalCV/actions/workflows/ci.yml/badge.svg)`
 - Deploy: `![Deploy](https://github.com/Haskins2/personalCV/actions/workflows/deploy.yml/badge.svg)`
+
+
 
 ## Deployment
 
@@ -146,6 +160,8 @@ Push to the `main` branch to trigger automatic deployment via GitHub Actions. Th
 1. Run all CI checks (lint, type-check, test, build)
 2. If all checks pass, deploy to the production server
 3. Perform a health check to verify the deployment
+
+
 
 ### Server Configuration
 

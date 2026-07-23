@@ -35,7 +35,7 @@ export default function Home() {
       period: "2021 – Present",
       description: [
         <>
-          Currently pursuing a{" "}
+          I have recently finished a{" "}
           <a
             href="https://www.tcd.ie/engineering/current-students/undergraduate/engineering/year-five-mai/"
             target="_blank"
@@ -43,8 +43,9 @@ export default function Home() {
             className="text-gray-600 underline dark:text-gray-300"
           >
             Masters in Computer Engineering
-          </a>{" "}
-          with focus on Machine Learning
+         </a> 
+          .
+  
         </>,
       ],
       modules: [
@@ -103,7 +104,7 @@ export default function Home() {
         </>,
         "Conducted benchmarks for the latest KDB.AI releases, providing performance results for the marketing sales teams",
         "Developed a GitLab CI/CD benchmarking pipeline for developers to ensure possible performance degradation is caught at an early stage.",
-        "Utilised SonarQube for static code analysis, focusing on reducing code complexity, eliminating code smells bugs, and improving overall code maintainability",
+        "Used SonarQube for code analysis, focusing on reducing code complexity, eliminating code smells, bugs, and improving code maintainability",
       ],
       skills: [
         "Python",
@@ -121,11 +122,11 @@ export default function Home() {
     {
       role: "AI Content Reviewer - SWE Specialist",
       company: "Outlier",
-      period: "2023 - Present",
+      period: "2023 - 2025",
       description: [
-        "Evaluating and ranking AI-generated code responses to improve model accuracy and helpfulness.",
+        "Designing complex prompts to challenge the latest AI models on their reasoning, problem solving and codingabilities.",
+        "Evaluating and ranking code responses to improve model accuracy and helpfulness.",
         "Reviewing technical content for correctness, safety, and adherence to guidelines.",
-        "Contributing to the training of Large Language Models (LLMs) by providing expert feedback on code quality.",
       ],
       skills: [
         "LLM Evaluation",
@@ -183,6 +184,7 @@ export default function Home() {
       imageMarginY: 35,
     },
   ];
+
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Stephen Haskins" },
@@ -204,7 +206,7 @@ export default function Home() {
                 Stephen Haskins
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 dark:text-gray-300">
-                Masters Computer Engineering student at Trinity College Dublin.
+                M.A.I. Computer Engineering at Trinity College Dublin.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link href="/projects">
@@ -221,13 +223,12 @@ export default function Home() {
             </div>
 
             {/* Image */}
-            <div className="md:w-1/2 w-full bg-gray-200 dark:bg-gray-300 rounded-lg aspect-square flex items-center justify-center overflow-hidden">
+            <div className="md:w-1/2 w-full border-8 border-gray-200 dark:border-gray-700 rounded-lg aspect-square overflow-hidden">
               <Image
                 src="/headshot.jpeg"
                 alt="Headshot"
-                width={620}
-                height={630}
-                className="object-cover"
+                width={640}
+                height={640}
               />
             </div>
           </div>
@@ -263,13 +264,7 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6">
-                  I&apos;m Stephen Haskins, a final year Master&apos;s student
-                  specialising in Computer Engineering at Trinity College
-                  Dublin. I&apos;m passionate about reinforcement learning and
-                  machine learning, with experience applying these techniques to
-                  complex engineering challenges. I&apos;m seeking graduate
-                  opportunities where I can contribute to innovative projects
-                  and continue developing my skillset.
+                My name is Stephen Haskins and I&apos;ve just finished my Masters in Computer Engineering at Trinity College Dublin. I&apos;m really excited to discover how AI can optimise and even completely overhaul existing SWE workflows. I&apos;m passionate about reinforcement learning and machine learning, with experience applying these techniques to complex engineering challenges. 
                 </p>
 
                 <h2 className="text-xl sm:text-2xl font-semibold mb-3 dark:text-white">
