@@ -20,15 +20,26 @@ interface Project {
 }
 
 const projects: Project[] = [
+  // {
+  //   id: 9,
+  //   title: "Dart RTI App",
+  //   description:
+  //     "A Dart RTI application for the European Space Agency's Sentinel-3 mission.",
+  //   imageUrl: "/headshot.jpeg",
+  //   category: "Solo",
+  //   date: "October 2024 - Present",
+  //   skills: ["Next.js", "Tailwind CSS", "CI/CD", "NGINX"],
+  //   link: "/projects/cv-website",
+  // },
   {
     id: 8,
     title: "This Website",
     description:
-      "A personal website built with Next.js, Tailwind CSS and Shadcn UI.",
+      "A personal website to showcase my projects and skills built with Next.js, Tailwind CSS and Shadcn UI.",
     imageUrl: "/headshot.jpeg",
     category: "Solo",
-    date: "Sept 2025 - May 2026",
-    skills: ["Next.js", "Tailwind CSS", "Shadcn UI"],
+    date: "October 2024 - Present",
+    skills: ["Next.js", "Tailwind CSS", "CI/CD", "NGINX"],
     link: "/projects/cv-website",
   },
   {
