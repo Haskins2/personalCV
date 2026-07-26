@@ -10,8 +10,8 @@ test.describe('Homepage', () => {
     // Hero section should be visible
     await expect(page.getByRole('heading', { name: /Stephen Haskins/i })).toBeVisible()
 
-    // Subtitle/description should be visible (use first match to avoid strict mode violation)
-    await expect(page.getByText('Masters Computer Engineering student').first()).toBeVisible()
+    // Subtitle/description should be visible
+    await expect(page.getByText('Graduate Software Engineer')).toBeVisible()
 
     // Navigation buttons should be present
     await expect(page.getByRole('link', { name: /View Projects/i })).toBeVisible()

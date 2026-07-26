@@ -50,16 +50,12 @@ jobs:
           echo "Creating deployment package..."
           mkdir -p deploy_temp
 
-          # Copy necessary files (matching deploy.sh logic)
+          # Runtime files only — next start does not need src or Tailwind/TS configs
           cp -r .next deploy_temp/
           cp -r public deploy_temp/
-          cp -r src deploy_temp/
           cp package.json deploy_temp/
           cp package-lock.json deploy_temp/
           cp next.config.js deploy_temp/
-          cp tailwind.config.ts deploy_temp/
-          cp tsconfig.json deploy_temp/
-          cp postcss.config.mjs deploy_temp/
 
           # Create tar archive
           tar -czf deploy.tar.gz -C deploy_temp .
@@ -86,13 +82,34 @@ jobs:
           echo "Deploying application on server..."
           ssh -i ~/.ssh/deploy_key \
             ${{ secrets.LINODE_SSH_USER }}@${{ secrets.LINODE_SSH_HOST }} << 'EOF'
-
-          set -e  # Exit on any error
+          set -e
 
           cd ~/personalCV
 
+          rollback() {
+            echo "=== Rolling back to previous build ==="
+            LATEST_BACKUP=$(ls -dt .next.backup.* 2>/dev/null | head -n 1 || true)
+            if [ -z "$LATEST_BACKUP" ]; then
+              echo "ERROR: No backup available to restore"
+              return 1
+            fi
+
+            pm2 stop personalCV || true
+            pm2 delete personalCV || true
+            rm -rf .next
+            mv "$LATEST_BACKUP" .next
+            pm2 start npm --name "personalCV" -- start
+            pm2 save
+            echo "Rollback restored: $LATEST_BACKUP"
+          }
+
+          echo "=== Preparing release (app stays up) ==="
+          rm -rf .release
+          mkdir -p .release
+          tar -xzf deploy.tar.gz -C .release
+          (cd .release && npm ci --omit=dev)
+
           echo "=== Stopping current PM2 processes ==="
-          # Stop any existing processes (handles both old and new naming)
           pm2 stop personalCV || true
           pm2 delete personalCV || true
           pm2 stop personal-cv || true
@@ -105,28 +122,38 @@ jobs:
             echo "Backup created: $BACKUP_NAME"
           fi
 
-          echo "=== Extracting new build ==="
-          tar -xzf deploy.tar.gz
-
-          echo "=== Installing production dependencies ==="
-          npm ci --only=production
+          echo "=== Swapping in new release ==="
+          mv .release/.next .next
+          rm -rf public
+          mv .release/public public
+          rm -rf node_modules
+          mv .release/node_modules node_modules
+          cp .release/package.json package.json
+          cp .release/package-lock.json package-lock.json
+          cp .release/next.config.js next.config.js
+          rm -rf .release
+          rm -f deploy.tar.gz
 
           echo "=== Starting application ==="
-          pm2 start npm --name "personalCV" -- start
+          if ! pm2 start npm --name "personalCV" -- start; then
+            echo "ERROR: PM2 failed to start"
+            rollback
+            exit 1
+          fi
           pm2 save
 
           echo "=== Verifying deployment ==="
           sleep 5
-          if pm2 list | grep -q "personalCV"; then
+          APP_PID=$(pm2 pid personalCV 2>/dev/null || true)
+          if [ -n "$APP_PID" ] && [ "$APP_PID" != "0" ] && pm2 show personalCV 2>/dev/null | grep -i status | grep -qi online; then
             pm2 show personalCV
-            echo "Application started successfully!"
+            echo "Application is online (pid $APP_PID)!"
           else
-            echo "ERROR: Application failed to start"
+            echo "ERROR: Application is not online"
+            pm2 show personalCV || true
+            rollback
             exit 1
           fi
-
-          echo "=== Cleaning up ==="
-          rm -f deploy.tar.gz
 
           # Keep only the 3 most recent backups
           ls -dt .next.backup.* 2>/dev/null | tail -n +4 | xargs rm -rf 2>/dev/null || true
@@ -134,27 +161,51 @@ jobs:
           echo "=== Deployment complete! ==="
           EOF
 
-      - name: Cleanup SSH key
-        if: always()
-        run: rm -f ~/.ssh/deploy_key
-
       - name: Health check
+        id: health
         run: |
           echo "Waiting for server to be ready..."
           sleep 10
 
-          # Perform basic health check
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             --max-time 30 \
-            http://${{ secrets.LINODE_SSH_HOST }}:3000/ || echo "000")
+            https://stephenhaskins.com/ || echo "000")
 
           if [ "$HTTP_STATUS" = "200" ]; then
-            echo "Health check passed! Server is responding with HTTP $HTTP_STATUS"
+            echo "Health check passed! Public site returned HTTP $HTTP_STATUS"
           else
-            echo "Warning: Health check returned HTTP $HTTP_STATUS"
-            echo "The server may still be starting up, or nginx may be handling traffic"
-            # Don't fail the build - the server might be behind nginx
+            echo "Health check failed with HTTP $HTTP_STATUS"
+            exit 1
           fi
+
+      - name: Rollback on failed health check
+        if: failure() && steps.health.outcome == 'failure'
+        run: |
+          echo "Health check failed — rolling back on server..."
+          ssh -i ~/.ssh/deploy_key \
+            ${{ secrets.LINODE_SSH_USER }}@${{ secrets.LINODE_SSH_HOST }} << 'EOF'
+          set -e
+          cd ~/personalCV
+
+          LATEST_BACKUP=$(ls -dt .next.backup.* 2>/dev/null | head -n 1 || true)
+          if [ -z "$LATEST_BACKUP" ]; then
+            echo "ERROR: No backup available to restore"
+            exit 1
+          fi
+
+          pm2 stop personalCV || true
+          pm2 delete personalCV || true
+          rm -rf .next
+          mv "$LATEST_BACKUP" .next
+          pm2 start npm --name "personalCV" -- start
+          pm2 save
+          echo "Rollback restored: $LATEST_BACKUP"
+          EOF
+          exit 1
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
 
       - name: Deployment summary
         run: |
@@ -166,21 +217,3 @@ jobs:
           echo "Deployed by: ${{ github.actor }}"
           echo "Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           echo "============================================"
-
-  # Notify on deployment failure
-  notify-failure:
-    name: Notify on Failure
-    runs-on: ubuntu-latest
-    needs: [deploy]
-    if: failure()
-
-    steps:
-      - name: Create failure summary
-        run: |
-          echo "## Deployment Failed" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Actor:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Please check the workflow logs for details." >> $GITHUB_STEP_SUMMARY

@@ -1,12 +1,12 @@
 name: CI
 
-# Run on all pull requests and pushes to main/develop branches
+# PRs and develop pushes run CI directly.
+# Main pushes run CI via deploy.yml (workflow_call) to avoid duplicate runs.
 on:
   push:
-    branches: [main, develop]
+    branches: [develop]
   pull_request:
     branches: [main, develop]
-  # Allow this workflow to be called by other workflows (e.g., deploy.yml)
   workflow_call:
 
 # Cancel in-progress runs for the same branch
@@ -80,15 +80,7 @@ jobs:
       - name: Run Vitest
         run: npm run test -- --reporter=verbose
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: coverage-report
-          path: coverage/
-          retention-days: 7
-
-  # E2E tests with Playwright
+  # E2E tests with Playwright against production build
   e2e-tests:
     name: E2E Tests
     runs-on: ubuntu-latest
@@ -134,7 +126,7 @@ jobs:
           path: test-results/
           retention-days: 7
 
-  # Build verification (depends on lint, type-check, and tests)
+  # Build verification (depends on lint, type-check, and unit tests)
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -156,13 +148,6 @@ jobs:
 
       - name: Build application
         run: npm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: .next/
-          retention-days: 1
 
   # Summary job that depends on all checks
   ci-success:

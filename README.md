@@ -112,23 +112,31 @@ This project uses GitHub Actions for CI/CD.
 
 #### CI Workflow (`.github/workflows/ci.yml`)
 
-Runs on every push and pull request to `main` and `develop` branches:
+Runs on:
+
+- Pull requests targeting `main` or `develop`
+- Pushes to `develop`
+- `workflow_call` from the Deploy workflow (so `main` pushes do not run CI twice)
+
+Jobs:
 
 1. **Lint** - Runs ESLint to check code quality
 2. **Type Check** - Runs TypeScript compiler to catch type errors
-3. **Unit Tests** - Runs Vitest tests with coverage reporting
-4. **E2E Tests** - Runs Playwright tests against a built version
+3. **Unit Tests** - Runs Vitest tests
+4. **E2E Tests** - Builds the app, then runs Playwright against `next start` (production server)
 5. **Build** - Verifies the production build succeeds
 
 Jobs run in parallel where possible to minimize CI time.
 
 #### Deploy Workflow (`.github/workflows/deploy.yml`)
 
-Runs on pushes to `main` branch only:
+Runs on pushes to `main` only:
 
-1. Runs all CI checks first
-2. If checks pass, deploys to the Linode production server
-3. Performs health check after deployment
+1. Runs the reusable CI workflow first
+2. If checks pass, builds and deploys a slim runtime package to the Linode server
+3. Verifies PM2 reports the app as `online`
+4. Health-checks `https://stephenhaskins.com` (fails the job on non-200)
+5. Rolls back to the previous `.next` backup if start or health check fails
 
 
 
@@ -157,12 +165,10 @@ The following secrets must be configured in the repo settings:
 
 Push to the `main` branch to trigger automatic deployment via GitHub Actions. The workflow will:
 
-1. Run all CI checks (lint, type-check, test, build)
+1. Run all CI checks (lint, type-check, unit tests, e2e, build)
 2. If all checks pass, deploy to the production server
-3. Perform a health check to verify the deployment
-
-
+3. Health-check the public site and roll back automatically on failure
 
 ### Server Configuration
 
-The deployment targets the production server and assumes the application lives in `~/personalCV`. It uses [PM2](https://pm2.keymetrics.io/) to manage the application process on the server.
+The deployment targets the production server and assumes the application lives in `~/personalCV`. It uses [PM2](https://pm2.keymetrics.io/) to manage the application process on the server. The deploy package includes only runtime files (`.next`, `public`, `package.json`, `package-lock.json`, `next.config.js`).

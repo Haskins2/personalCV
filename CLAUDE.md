@@ -18,11 +18,7 @@ npm run lint            # Run ESLint
 ```
 
 ### Deployment
-```bash
-./deploy.sh             # Deploy to Linode server (builds locally, uploads, and restarts via PM2)
-```
-
-The deployment script builds the app locally, packages necessary files, uploads to the server at `172.237.120.179`, and manages the PM2 process remotely.
+Production deploys are handled by GitHub Actions (`.github/workflows/deploy.yml`) on pushes to `main`. The workflow runs CI via `workflow_call`, builds locally in Actions, uploads a slim runtime package over SSH, restarts the app with PM2, health-checks `https://stephenhaskins.com`, and rolls back on failure.
 
 ## Architecture
 
@@ -103,6 +99,6 @@ src/
 
 **Page Transitions**: All pages should be wrapped in `<PageTransition>` to maintain consistent navigation animations.
 
-**Deployment**: The deployment script expects the server to have Node.js and PM2 installed globally. It performs a full production build locally before deploying to avoid server build issues.
+**Deployment**: GitHub Actions builds the app, then deploys over SSH. The server needs Node.js and PM2 installed globally. CI runs on PRs/`develop` pushes directly; on `main`, CI runs only inside the Deploy workflow to avoid duplicate runs. E2E tests use the production server (`next start`), not `next dev`.
 
 **Static Assets**: Images are stored in `/public` directory and referenced with leading slash (e.g., `/headshot.jpeg`).

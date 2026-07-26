@@ -27,7 +27,6 @@ export default defineConfig({
 
   // Shared settings for all projects
   use: {
-    // Base URL for navigation - uses dev server
     baseURL: 'http://localhost:3000',
 
     // Capture trace on first retry for debugging failures
@@ -65,9 +64,9 @@ export default defineConfig({
     // },
   ],
 
-  // Run local dev server before starting tests
+  // CI tests the production build; locally prefer the dev server for faster iteration
   webServer: {
-    command: 'npm run dev',
+    command: process.env.CI ? 'npm run start' : 'npm run dev',
     url: 'http://localhost:3000',
     // Reuse existing server if already running (useful for local development)
     reuseExistingServer: !process.env.CI,

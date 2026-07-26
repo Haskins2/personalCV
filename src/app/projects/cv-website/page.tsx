@@ -95,7 +95,7 @@ const Page = () => {
                 After winning the 2024 HackTrinity hackathon, I promised myself
                 that I would reinvest the prize money (which is now well
                 exhausted) into self-development & server hosting.
-                That's why this website has been
+                That&apos;s why this website has been
                 live for nearly two years now and, through regular updates and
                 refinement, has grown into something I am genuinely proud of.
                 It gives me a place to share my projects, skills and experience

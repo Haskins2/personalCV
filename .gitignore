@@ -3,57 +3,41 @@
 ._*
 Thumbs.db
 
-# Node/Next.js
+# Dependencies
 node_modules/
-.next/
-out/
-dist/
-coverage/
-.vercel/
-
-# Logs
-npm-debug.log*
-yarn-error.log
-pnpm-debug.log*
-
-# Env
-.env*
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
+.pnp
 .pnp.js
 .yarn/install-state.gz
 
-# testing
-/coverage
-/test-results/
-/playwright-report/
-/playwright/.cache/
+# Next.js / build
+.next/
+out/
+dist/
+build/
 
-# next.js
-/.next/
-/out/
+# Testing
+coverage/
+test-results/
+playwright-report/
+playwright/.cache/
+blob-report/
 
-# production
-/build
+# Local CI/deploy dry-run
+deploy_temp/
+deploy.tar.gz
 
-# misc
-.DS_Store
-*.pem
+# Env
+.env*
+.env*.local
 
-# debug
+# Logs / debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
+# Misc
+*.pem
+.vercel/
 *.tsbuildinfo
 next-env.d.ts
