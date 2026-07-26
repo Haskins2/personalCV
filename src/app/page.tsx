@@ -6,11 +6,27 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { PageTransition } from "@/components/PageTransition";
+import { PhotographyCarousel } from "@/components/PhotographyCarousel";
+import { Github, Linkedin } from "lucide-react";
+import { readdirSync } from "node:fs";
+import path from "node:path";
+
+const photographyFiles = (() => {
+  try {
+    return readdirSync(path.join(process.cwd(), "public", "photos"))
+      .filter((file) => /\.(avif|gif|jpe?g|png|webp)$/i.test(file))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+      .map((file) => `/photos/${encodeURIComponent(file)}`);
+  } catch {
+    return [];
+  }
+})();
 
 interface Education {
   degree: string;
   institution: string;
   period: string;
+  grade: string;
   description: (string | JSX.Element)[];
   modules: string[];
   image: string;
@@ -35,6 +51,7 @@ export default function Home() {
       degree: "MAI in Computer Engineering",
       institution: "Trinity College Dublin",
       period: "2021 – Present",
+      grade: "1:1",
       description: [
         <>
           I have recently finished a 5 year{" "}
@@ -55,8 +72,6 @@ export default function Home() {
         "Deep Learning",
         "Computer Vision",
         "Distributed Systems",
-        "IoT Systems",
-        "Urban Computing",
       ],
       image: "/icons/TCD.png",
       imageAlt: "Trinity College Dublin logo",
@@ -65,6 +80,7 @@ export default function Home() {
       degree: "Erasmus at KU Leuven",
       institution: "KU Leuven, Belgium",
       period: "2025 2nd Semester",
+      grade: "2:1",
       description: [
         <>
           I studied abroad and took modules from the{" "}
@@ -83,7 +99,6 @@ export default function Home() {
         "Reinforcement Learning",
         "Natural Language Processing",
         "Probabilistic Graphical Models",
-        "AI Ethics & Society",
       ],
       image: "/icons/KUL.png",
       imageAlt: "KU Leuven logo",
@@ -212,7 +227,7 @@ export default function Home() {
                 Stephen Haskins
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 dark:text-gray-300">
-                M.A.I. Computer Engineering at Trinity College Dublin.
+                Graduate Software Engineer
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link href="/projects">
@@ -249,11 +264,37 @@ export default function Home() {
             <div className="flex flex-col md:flex-row items-start justify-between">
               {/* Left side content */}
               <div className="md:auto mb-8 md:mb-0 md:pr-8">
-                <div className="flex justify-between items-start mb-4">
+                <div className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row">
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold dark:text-white">
                     About Me
                   </h1>
-                  <div className="flex gap-3">
+                  <div className="flex flex-wrap gap-2 sm:justify-end">
+                    <Link
+                      href="https://www.linkedin.com/in/stephen-haskins-6240a024b/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        size="sm"
+                        className="bg-[#0A66C2] text-white hover:bg-[#004182] dark:bg-[#0A66C2] dark:text-white dark:hover:bg-[#004182]"
+                      >
+                        <Linkedin aria-hidden="true" />
+                        LinkedIn
+                      </Button>
+                    </Link>
+                    <Link
+                      href="https://github.com/Haskins2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        size="sm"
+                        className="bg-[#181717] text-white hover:bg-[#303030] dark:bg-[#181717] dark:text-white dark:hover:bg-[#303030]"
+                      >
+                        <Github aria-hidden="true" />
+                        GitHub
+                      </Button>
+                    </Link>
                     <Link
                       href="/CV.pdf"
                       target="_blank"
@@ -262,7 +303,7 @@ export default function Home() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="mb-4 dark:bg-gray-300 dark:text-black"
+                        className="dark:bg-gray-300 dark:text-black"
                       >
                         View CV
                       </Button>
@@ -280,7 +321,7 @@ export default function Home() {
                   {education.map((edu) => (
                     <Card
                       key={`${edu.degree}-${edu.institution}`}
-                      className="group flex flex-col overflow-hidden border-gray-200 bg-white/70 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800/70"
+                      className="group flex flex-col overflow-hidden border-gray-200 bg-white/70 shadow-sm transition-shadow duration-300 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-800/70"
                     >
                       <div className="flex min-h-24 items-center gap-4 border-b border-gray-200 bg-gray-50/80 p-4 dark:border-zinc-700 dark:bg-zinc-900/40">
                         <div className="flex h-16 w-20 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white p-2 shadow-sm sm:h-20 sm:w-24 dark:border-zinc-600">
@@ -303,9 +344,12 @@ export default function Home() {
                       </div>
 
                       <div className="flex flex-1 flex-col p-4 sm:p-5">
-                        <div>
+                        <div className="flex flex-wrap gap-2">
                           <span className="inline-flex rounded-full border border-gray-200 bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 dark:border-zinc-600 dark:bg-zinc-700 dark:text-gray-300">
                             {edu.period}
+                          </span>
+                          <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300">
+                            Grade: {edu.grade}
                           </span>
                         </div>
                         <div className="mt-4 text-sm leading-relaxed text-gray-600 sm:text-base dark:text-gray-300">
@@ -443,18 +487,23 @@ export default function Home() {
                   Hobbies
                 </h2>
                 <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-4">
-                  I&apos;m also passionate about photography, starting when I
-                  bought a €30 film camera from a car boot sale in Dresden. This
-                  complements my love for travelling, see some photos below.
+                  I&apos;m also passionate about photography, both film & digital. I love bringing these cameras on my travels and creating photo booklets when I come home.
                 </p>
-                <Link href="/photography">
-                  <Button
-                    size="default"
-                    className="bg-[#14171f] text-white dark:bg-gray-200 dark:text-black"
-                  >
-                    View Photography
-                  </Button>
-                </Link>
+                {photographyFiles.length > 0 ? (
+                  <div className="mt-8">
+                    <PhotographyCarousel photos={photographyFiles} />
+                  </div>
+                ) : null}
+                <div className="mt-6 flex justify-center">
+                  <Link href="/photography">
+                    <Button
+                      size="default"
+                      className="bg-[#14171f] text-white dark:bg-gray-200 dark:text-black"
+                    >
+                      View More Photography
+                    </Button>
+                  </Link>
+                </div>
               </div>
 
               {/* Right side content removed */}

@@ -21,13 +21,24 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: 8,
+    title: "This Website",
+    description:
+      "A personal website built with Next.js, Tailwind CSS and Shadcn UI.",
+    imageUrl: "/headshot.jpeg",
+    category: "Solo",
+    date: "Sept 2025 - May 2026",
+    skills: ["Next.js", "Tailwind CSS", "Shadcn UI"],
+    link: "/projects/cv-website",
+  },
+  {
     id: 7,
     title: "Thesis: Slot-based Driving",
     description:
       "Implementation of slot-based driving on a platoon of autonomous robots.",
-    imageUrl: "/projects/thesis/db21j_robot.png",
+    imageUrl: "/images/duckiebot.png",
     category: "Solo",
-    date: "Ongoing",
+    date: "Sept 2025 - May 2026",
     skills: ["Python", "Docker", "ROS & Robotics", "RL"],
     link: "/projects/thesis",
   },
@@ -86,17 +97,17 @@ const projects: Project[] = [
     skills: ["Full Stack", "Python", "RAG", "LLM API"],
     link: "https://borderbuddyai.com",
   },
-  {
-    id: 6,
-    title: "Autonomous Buggy Project",
-    description:
-      "An autonomous buggy was developed using an Arduino and off the shelf IR sensors, US sensors and motors.",
-    imageUrl: "/buggy.jpg",
-    category: "Solo",
-    date: "January 2024",
-    skills: ["C++", "Electronics"],
-    link: "https://github.com/Haskins2/Autonomous-Buggy-Project",
-  },
+  // {
+  //   id: 6,
+  //   title: "Autonomous Buggy Project",
+  //   description:
+  //     "An autonomous buggy was developed using an Arduino and off the shelf IR sensors, US sensors and motors.",
+  //   imageUrl: "/buggy.jpg",
+  //   category: "Solo",
+  //   date: "January 2024",
+  //   skills: ["C++", "Electronics"],
+  //   link: "https://github.com/Haskins2/Autonomous-Buggy-Project",
+  // },
 
   // Add more projects as needed
 ];
