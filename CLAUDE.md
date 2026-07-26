@@ -18,7 +18,7 @@ npm run lint            # Run ESLint
 ```
 
 ### Deployment
-Production deploys are handled by GitHub Actions (`.github/workflows/deploy.yml`) on pushes to `main`. The workflow runs CI via `workflow_call`, builds locally in Actions, uploads a slim runtime package over SSH, restarts the app with PM2, health-checks `https://stephenhaskins.com`, and rolls back on failure.
+Production deploys are handled by GitHub Actions (`.github/workflows/deploy.yml`) on pushes to `main`. The workflow runs CI via `workflow_call`, builds locally in Actions, uploads a slim runtime package over SSH, restarts the app with PM2, health-checks `https://stephenhaskins.me`, and rolls back on failure.
 
 ## Architecture
 

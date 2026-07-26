@@ -27,7 +27,7 @@ jobs:
 
     environment:
       name: production
-      url: https://stephenhaskins.com
+      url: https://stephenhaskins.me
 
     steps:
       - name: Checkout repository
@@ -167,14 +167,22 @@ jobs:
           echo "Waiting for server to be ready..."
           sleep 10
 
+          # Avoid `curl || echo 000` (that can produce 000000 when curl already prints 000)
+          set +e
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             --max-time 30 \
-            https://stephenhaskins.com/ || echo "000")
+            https://stephenhaskins.me/)
+          CURL_EXIT=$?
+          set -e
+
+          if [ "$CURL_EXIT" -ne 0 ] || [ -z "$HTTP_STATUS" ]; then
+            HTTP_STATUS="000"
+          fi
 
           if [ "$HTTP_STATUS" = "200" ]; then
             echo "Health check passed! Public site returned HTTP $HTTP_STATUS"
           else
-            echo "Health check failed with HTTP $HTTP_STATUS"
+            echo "Health check failed with HTTP $HTTP_STATUS (curl exit $CURL_EXIT)"
             exit 1
           fi
 

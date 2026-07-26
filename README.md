@@ -135,7 +135,7 @@ Runs on pushes to `main` only:
 1. Runs the reusable CI workflow first
 2. If checks pass, builds and deploys a slim runtime package to the Linode server
 3. Verifies PM2 reports the app as `online`
-4. Health-checks `https://stephenhaskins.com` (fails the job on non-200)
+4. Health-checks `https://stephenhaskins.me` (fails the job on non-200)
 5. Rolls back to the previous `.next` backup if start or health check fails
 
 
